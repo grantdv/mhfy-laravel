@@ -37,7 +37,9 @@ Controllers handle HTTP requests and return views or JSON:
 - `OrderHistoryController`: Provides a view of past customer interactions.
 
 ### 4. Migrations (Database Schema)
-The schema is designed to support a flexible inquiry system. Every request is treated as an `OrderRequest`, allowing the concierge to handle both product sales and general messages through a unified interface.
+The schema is designed to support a flexible inquiry system. Every request is treated as an `OrderRequest`, allowing the concierge to handle both product sales and general messages through a unified interface. 
+
+The production environment utilizes **PostgreSQL** to leverage its advanced data integrity, reliability, and superior JSONB support for potentially complex future product attributes.
 
 ## Data Flow: The Checkout Process
 

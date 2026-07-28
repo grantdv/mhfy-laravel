@@ -7,7 +7,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
 
 ## Tech Stack
 - **Framework:** Laravel (PHP 8.4)
-- **Database:** SQLite (Development)
+- **Database:** PostgreSQL (Production), SQLite (Development)
 - **Payment Gateway:** Stripe
 - **Frontend:** Tailwind CSS, Blade Templates
 - **Workflow:** Concierge (Inquiry $\rightarrow$ Review $\rightarrow$ Invoice $\rightarrow$ Payment $\rightarrow$ Fulfillment)
