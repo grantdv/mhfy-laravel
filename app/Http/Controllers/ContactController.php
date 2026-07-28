@@ -37,7 +37,7 @@ class ContactController extends Controller
         // In a real app, you'd send this to a specific address
         // For now, we use the LOG mailer for development
         Mail::raw($validated['message'], function ($message) use ($validated) {
-            $message->to('admin@mhfy.com')
+            $message->to('admin@mayharmonyfindyou.com')
                     ->subject("Contact Form: " . $validated['name']);
         });
 
