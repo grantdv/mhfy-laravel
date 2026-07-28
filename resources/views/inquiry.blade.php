@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | MHFY</title>
+    <title>Inquiry Checkout | May Harmony Find You</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">MHFY</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
                 </div>
                 <div class="flex space-x-4">
                     <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
@@ -32,7 +32,7 @@
             </div>
         @else
             <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-                <h1 class="text-3xl font-bold mb-8 text-gray-900">Checkout</h1>
+                <h1 class="text-3xl font-bold mb-8 text-gray-900">Complete Your Inquiry</h1>
                 
                 <div class="mb-8">
                     <h3 class="text-lg font-bold mb-4">Order Summary</h3>

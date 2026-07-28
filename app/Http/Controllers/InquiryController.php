@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Handles the guest inquiry and checkout flow.
+ * 
+ * This controller manages the transition from the product catalog 
+ * to the final inquiry submission.
+ */
 class InquiryController extends Controller
 {
     public function __construct(
@@ -18,7 +24,7 @@ class InquiryController extends Controller
     /**
      * Display the checkout form.
      *
-     * @param  string|null  $productName
+     * @param string|null $productName
      * @return \Illuminate\View\View
      */
     public function create(?string $productName = null): \Illuminate\View\View
@@ -48,7 +54,7 @@ class InquiryController extends Controller
     /**
      * Handle the checkout request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): RedirectResponse

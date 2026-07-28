@@ -6,6 +6,13 @@ use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Handles shopping cart operations for guest users.
+ * 
+ * This controller manages the temporary session-based cart, 
+ * allowing users to build a selection of products before 
+ * proceeding to the inquiry submission.
+ */
 class CartController extends Controller
 {
     public function __construct(
@@ -14,6 +21,9 @@ class CartController extends Controller
 
     /**
      * Add a product to the cart.
+     * 
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function add(Request $request): RedirectResponse
     {
@@ -22,13 +32,15 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->cartService->addToCart($request->product_id, $request->quantity);
+        $this->cartService->addProduct($request->product_id, $request->quantity);
 
         return redirect()->back()->with('success', 'Product added to cart!');
     }
 
     /**
      * Get the current cart contents.
+     * 
+     * @return \Illuminate\View\View
      */
     public function show(): \Illuminate\View\View
     {
@@ -38,6 +50,8 @@ class CartController extends Controller
 
     /**
      * Clear the cart.
+     * 
+     * @return RedirectResponse
      */
     public function clear(): RedirectResponse
     {

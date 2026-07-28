@@ -6,6 +6,12 @@ use App\Models\OrderRequest;
 use App\Services\OrderService;
 use Illuminate\Console\Command;
 
+/**
+ * Command to manually trigger the invoicing process for a specific order.
+ * 
+ * This is useful for administrative tasks or scheduled jobs where an 
+ * order needs to move to the payment stage.
+ */
 class OrderInvoiceCommand extends Command
 {
     /**

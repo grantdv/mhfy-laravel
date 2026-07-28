@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | MHFY</title>
+    <title>Contact Us | May Harmony Find You</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">MHFY</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
                 </div>
                 <div class="flex space-x-4">
                     <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
@@ -23,8 +23,8 @@
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h1 class="text-3xl font-bold mb-2 text-gray-900">Contact Us</h1>
-            <p class="text-gray-600 mb-8">Have questions about our services? Send us a message and our concierge team will get back to you as soon as possible.</p>
+            <h1 class="text-3xl font-bold mb-2 text-gray-900">Contact Our Concierge</h1>
+            <p class="text-gray-600 mb-8">Our concierge team is here to ensure your experience is seamless. If you have any questions regarding our services or wish to discuss a bespoke request, please share your message below. We will respond promptly to assist you.</p>
             
             @if (session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">

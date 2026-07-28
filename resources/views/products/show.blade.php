@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $product->name }} | MHFY</title>
+    <title>{{ $product->name }} | May Harmony Find You</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">MHFY</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
                 </div>
                 <div class="flex space-x-4">
                     <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Back to Catalog</a>
@@ -51,7 +51,7 @@
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-200">
-                                Add to Cart
+                                Add to Selection
                             </button>
                         </form>
                     </div>

@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Handles the general contact form for the website.
+ * 
+ * This controller allows potential customers to reach out for general 
+ * questions or bespoke request discussions that fall outside the 
+ * standard inquiry flow.
+ */
 class ContactController extends Controller
 {
     /**
      * Display the contact form.
+     * 
+     * @return \Illuminate\View\View
      */
     public function show(): \Illuminate\View\View
     {
@@ -17,6 +26,9 @@ class ContactController extends Controller
 
     /**
      * Handle the contact form submission.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function submit(Request $request): \Illuminate\Http\RedirectResponse
     {

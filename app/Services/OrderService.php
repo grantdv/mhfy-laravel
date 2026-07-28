@@ -10,10 +10,20 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Orchestrates the business logic for order lifecycle management.
+ * 
+ * This service handles the transition of OrderRequests through their 
+ * states (pending $\rightarrow$ invoiced $\rightarrow$ paid) and coordinates
+ * between the database, inventory logic, and the Stripe communication layer.
+ */
 class OrderService
 {
     protected StripeService $stripeService;
 
+    /**
+     * @param StripeService $stripeService
+     */
     public function __construct(StripeService $stripeService)
     {
         $this->stripeService = $stripeService;
@@ -21,7 +31,10 @@ class OrderService
 
     /**
      * Creates a new order from a customer inquiry.
-     *
+     * 
+     * It handles the logic for both product-based orders (decrementing stock) 
+     * and general inquiries (purely informational).
+     * 
      * @param array $data
      * @param array $cartItems
      * @return OrderRequest
@@ -47,7 +60,7 @@ class OrderService
                     
                     $isBackordered = $product->stock_quantity <= 0;
 
-                    // Decrement stock if available
+                    // Decrement stock only if it's available
                     if (!$isBackordered) {
                         $product->decrement('stock_quantity', $item['quantity']);
                     }
@@ -68,7 +81,9 @@ class OrderService
 
     /**
      * Transitions an order to the 'invoiced' state and sends a payment link.
-     *
+     * 
+     * This triggers the Stripe session creation and sends the PaymentInvoice email.
+     * 
      * @param OrderRequest $order
      * @return void
      * @throws \Exception
@@ -88,10 +103,10 @@ class OrderService
 
         $sessionId = $this->stripeService->createCheckoutSession($order, $successUrl, $cancelUrl);
 
-        // 3. Store Stripe Session ID
+        // 3. Store Stripe Session ID for webhook tracking
         $order->update(['stripe_session_id' => $sessionId]);
 
-        // 4. Send Email
+        // 4. Send the automated PaymentInvoice email
         Mail::to($order->email)->send(new PaymentInvoice($order, $sessionId));
 
         Log::info("Order {$order->id} has been invoiced and payment link sent to {$order->email}.");

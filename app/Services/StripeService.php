@@ -8,10 +8,19 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use Stripe\Exception\ApiErrorException;
 
+/**
+ * Handles all interactions with the Stripe API.
+ * 
+ * This service is primarily responsible for creating Stripe Checkout 
+ * Sessions and ensuring that order metadata is correctly passed to Stripe.
+ */
 class StripeService
 {
     protected StripeClient $stripe;
 
+    /**
+     * @param StripeClient|null $stripe Optional injected client, defaults to using config.
+     */
     public function __construct(?StripeClient $stripe = null)
     {
         $this->stripe = $stripe ?? new StripeClient(config('services.stripe.secret'));
@@ -19,7 +28,7 @@ class StripeService
 
     /**
      * Create a Stripe Checkout Session for an OrderRequest.
-     *
+     * 
      * @param OrderRequest $orderRequest
      * @param string $successUrl
      * @param string $cancelUrl

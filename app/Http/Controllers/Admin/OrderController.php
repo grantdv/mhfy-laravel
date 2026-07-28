@@ -9,10 +9,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Handles administrative actions for orders.
+ * 
+ * This controller provides the dashboard for the concierge team to 
+ * monitor incoming inquiries and trigger the payment workflow.
+ */
 class OrderController extends Controller
 {
     /**
      * Display a listing of the orders.
+     * 
+     * @return \Illuminate\View\View
      */
     public function index(): \Illuminate\View\View
     {
@@ -22,6 +30,9 @@ class OrderController extends Controller
 
     /**
      * Display the specified order.
+     * 
+     * @param OrderRequest $order
+     * @return \Illuminate\View\View
      */
     public function show(OrderRequest $order): \Illuminate\View\View
     {
@@ -30,6 +41,13 @@ class OrderController extends Controller
 
     /**
      * Trigger the invoicing process for an order.
+     * 
+     * This action transitions the order to 'invoiced' status and 
+     * sends the PaymentInvoice email to the customer.
+     * 
+     * @param OrderRequest $order
+     * @param OrderService $orderService
+     * @return RedirectResponse
      */
     public function invoice(OrderRequest $order, OrderService $orderService): RedirectResponse
     {

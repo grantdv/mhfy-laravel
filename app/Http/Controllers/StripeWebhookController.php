@@ -9,10 +9,19 @@ use App\Models\OrderRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Handles incoming Stripe Webhook notifications.
+ * 
+ * This controller validates the Stripe signature and processes the 
+ * `checkout.session.completed` event to update order statuses.
+ */
 class StripeWebhookController extends Controller
 {
     /**
      * Handle the Stripe webhook event.
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
     public function handle(Request $request): JsonResponse
     {
@@ -39,6 +48,9 @@ class StripeWebhookController extends Controller
 
     /**
      * Process the validated Stripe event.
+     *
+     * @param object $event
+     * @return JsonResponse
      */
     public function processEvent($event): JsonResponse
     {
@@ -57,6 +69,12 @@ class StripeWebhookController extends Controller
 
     /**
      * Handle the checkout.session.completed event.
+     * 
+     * Extracts the `order_id` from metadata to update the correct 
+     * record in our database.
+     * 
+     * @param object $session
+     * @return void
      */
     protected function handleCheckoutSessionCompleted($session): void
     {
