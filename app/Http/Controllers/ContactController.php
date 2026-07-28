@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Mail;
 
 /**
  * Handles the general contact form for the website.
- * 
- * This controller allows potential customers to reach out for general 
- * questions or bespoke request discussions that fall outside the 
- * standard inquiry flow.
  */
 class ContactController extends Controller
 {

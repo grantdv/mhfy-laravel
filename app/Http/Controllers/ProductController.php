@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Handles public and admin-facing product catalog actions.
  * 
- * This controller manages product listing, detail views, and 
- * full CRUD operations for the administrative dashboard.
+ * This controller manages the public catalog and the admin product management.
  */
 class ProductController extends Controller
 {
@@ -46,9 +42,9 @@ class ProductController extends Controller
      * Admin-only. Handles file upload for product images.
      * 
      * @param Request $request
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -60,10 +56,9 @@ class ProductController extends Controller
 
         $path = null;
         if ($request->hasFile('image')) {
-            // Delete old image if exists
             if ($product_id = $request->input('product_id') && $product = Product::find($product_id)) {
                 if ($product->image) {
-                    Storage::disk('public')->delete($product->image);
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($product->image);
                 }
             }
             $path = $request->file('image')->store('products', 'public');
@@ -85,14 +80,14 @@ class ProductController extends Controller
     /**
      * Update the specified product.
      * 
-     * Admin-only. Handles file upload for product images and 
+     * Admin-only. Handles file upload for product images and
      * status/stock updates.
      * 
      * @param Request $request
      * @param Product $product
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, Product $product): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -107,7 +102,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->image);
             }
             $path = $request->file('image')->store('products', 'public');
         }
@@ -131,12 +126,12 @@ class ProductController extends Controller
      * Admin-only. Handles file deletion.
      * 
      * @param Product $product
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product): \Illuminate\Http\RedirectResponse
     {
         if ($product->image) {
-            Storage::disk('public')->delete($product->image);
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($product->image);
         }
         
         $product->delete();

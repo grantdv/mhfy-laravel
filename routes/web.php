@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
