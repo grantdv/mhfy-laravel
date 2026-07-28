@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Handles the general contact form for the website.
@@ -34,12 +35,12 @@ class ContactController extends Controller
             'message' => 'required|string|min:10',
         ]);
 
-        // In a real app, you'd send this to a specific address
-        // For now, we use the LOG mailer for development
-        Mail::raw($validated['message'], function ($message) use ($validated) {
-            $message->to('admin@mayharmonyfindyou.com')
-                    ->subject("Contact Form: " . $validated['name']);
-        });
+        // Log the message directly to bypass SMTP issues during development
+        Log::info("Contact Form Submission:", [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'message' => $validated['message']
+        ]);
 
         return redirect()->back()->with('success', 'Your message has been sent! We will get back to you soon.');
     }
