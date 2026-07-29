@@ -27,7 +27,10 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
 - **Http/Controllers/**: Request handling and response generation.
     - `InquiryController`: Processes the guest inquiry forms.
     - `StripeWebhookController`: Listens for Stripe events to update order statuses.
-    - `Admin/`: Namespace for administrative actions (Product management, Order status updates).
+    - `Admin/`: Namespace for administrative actions.
+        - `DashboardController`: The primary landing page for concierge operations.
+        - `ProductController`: Manages the public catalog and admin product management.
+        - `OrderController`: Manages order review, invoicing, and status updates.
 - **Mail/`: Email templates and logic.
     - `PaymentInvoice`: The primary communication sent to customers with a Stripe payment link.
 - **Console/Commands/`: CLI tools for administrative tasks.

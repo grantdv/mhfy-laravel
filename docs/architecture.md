@@ -32,7 +32,9 @@ To keep controllers thin, core logic is encapsulated in Service classes:
 Controllers handle HTTP requests and return views or JSON:
 - `InquiryController`: Manages the submission of inquiries and the success feedback loop.
 - `StripeWebhookController`: Listens for Stripe events and updates `OrderRequest` statuses.
-- `ProductController`: Manages the public catalog and the admin product management.
+- `Admin/DashboardController`: The primary landing page for the concierge team.
+- `Admin/ProductController`: Manages the public catalog and admin product management.
+- `Admin/OrderController`: Manages order review, invoicing, and status updates.
 - `ProfileController`: Manages user-specific account details.
 - `OrderHistoryController`: Provides a view of past customer interactions.
 
