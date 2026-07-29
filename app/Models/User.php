@@ -3,24 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Authenticatable;
-use Illuminate\Foundation\Obligations\SendsEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-
-/**
- * MANUALLY LOAD CORE INTERFACES TO BYPASS BROKEN SERVER PATHS
- */
-$auth_path = '/var/www/vhosts/mayharmonyfindyou.com/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Authenticatable.php';
-$email_path = '/var/www/vhosts/mayharmonyfindyou.com/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Obligations/SendsEmail.php';
-
-if (file_exists($auth_path)) {
-    require_once $auth_path;
-}
-if (file_exists($email_path)) {
-    require_once $email_path;
-}
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Represents a platform user.
@@ -34,13 +20,19 @@ if (file_exists($email_path)) {
  * @property string $password
  * @property string|null $shipping_address
  * @property string|null $phone_number
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
  * 
  * @method HasMany orders() - Returns all OrderRequests associated with this user's email.
  */
-class User extends Model implements Authenticatable, SendsEmail
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     * 
+     * @var list<string>
+     */
     protected $fillable = [
         'name',
         'email',
@@ -49,15 +41,28 @@ class User extends Model implements Authenticatable, SendsEmail
         'phone_number',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     * 
+     * @var list<string>
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     * 
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     /**
      * Get the orders associated with this user.
@@ -66,7 +71,7 @@ class User extends Model implements Authenticatable, SendsEmail
      * 
      * @return HasMany
      */
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(OrderRequest::class, 'email', 'email');
     }
