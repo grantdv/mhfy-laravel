@@ -8,6 +8,9 @@ use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
 Route::get('/', function () {
     return view('welcome');
 });
