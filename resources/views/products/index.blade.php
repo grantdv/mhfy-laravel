@@ -30,6 +30,13 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach ($products as $product)
             <div class="group bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <div class="relative h-64 bg-gray-100 overflow-hidden">
+                    @if($product->image)
+                        <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&h=500&fit=crop" alt="Product placeholder" class="w-full h-full object-cover">
+                    @endif
+                </div>
                 <div class="p-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">{{ $product->name }}</h3>
                     <p class="text-gray-600 mb-4 line-clamp-3">{{ $product->description }}</p>
