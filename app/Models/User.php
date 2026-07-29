@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Obligations\SendsEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
