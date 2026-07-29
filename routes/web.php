@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,11 @@ Route::middleware('auth')->group(function () {
 // Public Routes
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Cart Routes
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 // Inquiry Routes
 Route::get('/inquiry', [InquiryController::class, 'create'])->name('inquiry.create');
