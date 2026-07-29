@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\CartService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * Handles shopping cart operations for guest users.
@@ -23,9 +23,9 @@ class CartController extends Controller
      * Add a product to the cart.
      * 
      * @param Request $request
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request): RedirectResponse
+    public function add(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'product_id' => 'required|integer',
