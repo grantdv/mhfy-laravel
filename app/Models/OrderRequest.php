@@ -37,9 +37,9 @@ class OrderRequest extends Model
     /**
      * Get the items belonging to the order request.
      * 
-     * @return HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orderItems(): HasMany
+    public function orderItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
