@@ -13,7 +13,13 @@
                 <div class="flex-shrink-0">
                     <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
                 </div>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 items-center">
+                    <a href="{{ route('cart.show') }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out">
+                        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        Cart
+                    </a>
                     <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
                     <a href="{{ route('contact') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Contact Us</a>
                 </div>
@@ -43,18 +49,34 @@
                                     <th class="py-2 text-left">Item</th>
                                     <th class="py-2 text-center">Qty</th>
                                     <th class="py-2 text-right">Price</th>
+                                    <th class="py-2 text-right">Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $total = 0;
+                                @endphp
                                 @foreach($cart as $id => $item)
                                 <tr class="border-b border-gray-100 last:border-none">
-                                    <td class="py-2">{{ $item['id'] }}</td>
+                                    <td class="py-2">
+                                        @if($item['image'])
+                                            <img src="{{ asset('storage/'.$item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded-lg">
+                                        @else
+                                            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=100&h=100&fit=crop" alt="Product placeholder" class="w-12 h-12 object-cover rounded-lg">
+                                        @endif
+                                        <span class="text-sm font-medium block mt-1">{{ $item['name'] }}</span>
+                                    </td>
                                     <td class="py-2 text-center">{{ $item['quantity'] }}</td>
-                                    <td class="py-2 text-right">$0.00</td>
+                                    <td class="py-2 text-right">${{ number_format($item['price'], 2) }}</td>
+                                    <td class="py-2 text-right font-bold">${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-4 pt-4 border-t border-gray-200 flex justify-between items-center">
+                            <span class="text-lg font-bold">Total:</span>
+                            <span class="text-xl font-bold text-indigo-600">${{ number_format($total, 2) }}</span>
+                        </div>
                     </div>
                 </div>
 

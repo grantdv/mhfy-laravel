@@ -7,7 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 py-12">
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
+            <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600">Products</a>
+        </div>
+    </nav>
+    <div class="max-w-4xl mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-8">Your Selection</h1>
         @php
             $total = 0;
