@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::get('/', function () {
     return view('welcome');
