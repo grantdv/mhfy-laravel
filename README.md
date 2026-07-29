@@ -19,7 +19,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
     - `Product`: The core items offered by the concierge.
     - `OrderRequest`: The central entity for all inquiries (Product Orders or General Inquiries).
     - `OrderItem`: Individual items within a product order.
-    - `User`: (Optional/Future) Customer accounts and profile management.
+    - `User`: Customer accounts and profile management (Laravel 11+ compatible).
 - **Services/`: Business logic layer to keep Controllers thin.
     - `StripeService`: Interfaces with the Stripe API for session creation and payment handling.
     - `OrderService`: Manages the state machine of an `OrderRequest` (pending $\rightarrow$ invoiced $\rightarrow$ paid).
@@ -27,6 +27,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
 - **Http/Controllers/**: Request handling and response generation.
     - `InquiryController`: Processes the guest inquiry forms.
     - `StripeWebhookController`: Listens for Stripe events to update order statuses.
+    - `CartController`: Manages session-based shopping cart operations.
     - `Admin/`: Namespace for administrative actions.
         - `DashboardController`: The primary landing page for concierge operations.
         - `ProductController`: Manages the public catalog and admin product management.
@@ -48,7 +49,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
     - `emails/`: HTML templates for automated outgoing communications.
 
 ### `routes/`
-- `web.php`: Public and authenticated web routes.
+- `web.php`: Public and authenticated web routes (includes cart routes).
 - `api.php`: API endpoints (if applicable).
 
 ## Core Workflow
