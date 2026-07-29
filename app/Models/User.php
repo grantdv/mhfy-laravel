@@ -9,12 +9,17 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-// MANUALLY INCLUDE MISSING INTERFACES TO BYPASS BROKEN AUTOLOADER
-if (!class_exists(\Illuminate\Foundation\Auth\Authenticatable::class)) {
-    require_once __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Foundation/Auth/Authenticatable.php';
+/**
+ * MANUALLY LOAD CORE INTERFACES TO BYPASS BROKEN SERVER PATHS
+ */
+$auth_path = '/var/www/vhosts/mayharmonyfindyou.com/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Authenticatable.php';
+$email_path = '/var/www/vhosts/mayharmonyfindyou.com/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Obligations/SendsEmail.php';
+
+if (file_exists($auth_path)) {
+    require_once $auth_path;
 }
-if (!interface_exists(\Illuminate\Foundation\Obligations\SendsEmail::class)) {
-    require_once __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Foundation/Obligations/SendsEmail.php';
+if (file_exists($email_path)) {
+    require_once $email_path;
 }
 
 /**
