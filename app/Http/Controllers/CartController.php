@@ -45,7 +45,7 @@ class CartController extends Controller
     public function show(): \Illuminate\View\View
     {
         $cart = $this->cartService->getCart();
-        return view('cart.index', compact('cart'));
+        return view('cart', compact('cart'));
     }
 
     /**
