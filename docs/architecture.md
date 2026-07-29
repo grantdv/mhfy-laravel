@@ -17,7 +17,7 @@ The application follows a standard Laravel architecture with a clear separation 
 
 ### 1. Models (Data Layer)
 The core data entities of the system:
-- `Product`: Represents items available in the catalog. Includes attributes for price, stock quantity, and "active" status.
+- `Product`: Represents items available in the catalog. Includes attributes for price, stock quantity, image, and "active" status.
 - `OrderRequest`: The central entity. It captures every customer interaction, whether it's a product purchase or a general message. It tracks status (`pending`, `invoiced`, `paid`) and links to Stripe sessions.
 - `OrderItem`: Represents the specific products and quantities within a `product_order` type request.
 - `User`: Handles profile information and (optionally) order history for customers who choose to create an account. Updated to Laravel 11+ structure with proper trait-based authentication.
@@ -26,7 +26,7 @@ The core data entities of the system:
 To keep controllers thin, core logic is encapsulated in Service classes:
 - `StripeService`: Handles all interactions with the Stripe API, specifically creating Checkout Sessions and managing payment metadata.
 - `OrderService`: Manages the state machine of an `OrderRequest`. It handles the transition from `pending` to `invoiced`, triggers payment emails, and manages stock logic (including backorders).
-- `CartService`: Manages temporary session-based cart data for guest users, including adding products, viewing cart contents, and clearing the cart.
+- `CartService`: Manages temporary session-based cart data for guest users, including adding products with full product details (name, price, image), viewing cart contents, calculating totals, and clearing the cart.
 
 ### 3. Controllers (Request Handling)
 Controllers handle HTTP requests and return views or JSON:
@@ -43,6 +43,20 @@ Controllers handle HTTP requests and return views or JSON:
 The schema is designed to support a flexible inquiry system. Every request is treated as an `OrderRequest`, allowing the concierge to handle both product sales and general messages through a unified interface. 
 
 The production environment utilizes **PostgreSQL** to leverage its advanced data integrity, reliability, and superior JSONB support for potentially complex future product attributes.
+
+## Data Flow: The Checkout Process
+
+1.  **Frontend:** User adds items to the `CartService` via `CartController::add` and submits the `InquiryController@store` form.
+2.  **Backend (OrderService):**
+    - Validates the cart.
+    - Creates an `OrderRequest` with `pending` status.
+    - If it's a product order, it decrements stock and creates `OrderItem` records.
+3.  **Backend (Admin):** Admin reviews the order and triggers the `OrderInvoiceCommand` (or a button in the dashboard).
+4.  **Backend (OrderService + StripeService):**
+    - `OrderService` updates the order to `invoiced`.
+    - `StripeService` creates a Checkout Session.
+    - `Mail::send` triggers the `PaymentInvoice` email.
+5.  **Stripe Webhook:** Once the customer pays, Stripe hits the `StripeWebhookController`, which updates the order to `paid`.
 
 ## Recent Updates (July 2026)
 
@@ -61,16 +75,15 @@ The production environment utilizes **PostgreSQL** to leverage its advanced data
 - **View Components**: Created missing `app-layout.blade.php` component for admin dashboard
 - **Route Registration**: Fixed missing cart routes that were causing 500 errors on products page
 
-## Data Flow: The Checkout Process
+### Product Display & Cart Navigation
+- **Product Images**: Added image display to product catalog, product details, and cart pages
+- **Cart Link**: Added cart icon to all public pages (Welcome, Products, Product Details, Cart, Inquiry)
+- **Cart Totals**: Implemented real-time total calculation with product details (name, price, image)
+- **Product Details**: Fixed product show page to display product images properly
+- **Admin Product Management**: Added create form for new products with image upload
+- **Stock & Backorder**: Implemented stock quantity tracking and backorder support
 
-1.  **Frontend:** User adds items to the `CartService` via `CartController::add` and submits the `InquiryController@store` form.
-2.  **Backend (OrderService):**
-    - Validates the cart.
-    - Creates an `OrderRequest` with `pending` status.
-    - If it's a product order, it decrements stock and creates `OrderItem` records.
-3.  **Backend (Admin):** Admin reviews the order and triggers the `OrderInvoiceCommand` (or a button in the dashboard).
-4.  **Backend (OrderService + StripeService):**
-    - `OrderService` updates the order to `invoiced`.
-    - `StripeService` creates a Checkout Session.
-    - `Mail::send` triggers the `PaymentInvoice` email.
-5.  **Stripe Webhook:** Once the customer pays, Stripe hits the `StripeWebhookController`, which updates the order to `paid`.
+### Navigation Improvements
+- **Public Navigation**: Cart icon now accessible from all guest-facing pages
+- **Consistent UI**: Unified navigation across all pages for better user experience
+- **Responsive Design**: Mobile-friendly cart display and product grid

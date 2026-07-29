@@ -12,6 +12,28 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
 - **Frontend:** Tailwind CSS, Blade Templates
 - **Workflow:** Concierge (Inquiry $\rightarrow$ Review $\rightarrow$ Invoice $\rightarrow$ Payment $\rightarrow$ Fulfillment)
 
+## Features
+
+### Cart System
+- **Guest Cart**: Session-based shopping cart for guest users
+- **Product Display**: Shows product images, names, and prices in cart
+- **Real-time Totals**: Automatically calculates subtotals and grand total
+- **Cart Navigation**: Cart icon accessible from all public pages
+- **Remove Items**: Ability to remove individual items from cart
+
+### Product Management
+- **Public Catalog**: Beautiful product display with images and hover effects
+- **Product Details**: Full product information page with image display
+- **Admin Management**: Full CRUD operations for products
+- **Stock Tracking**: Real-time inventory management with backorder support
+- **Active/Inactive Status**: Toggle product visibility
+
+### User Experience
+- **Concierge Flow**: Guest-friendly checkout without forced account creation
+- **Responsive Design**: Mobile-friendly interface across all pages
+- **Image Upload**: Product images stored and displayed properly
+- **Navigation**: Consistent cart link across all public pages
+
 ## Directory Structure & Component Map
 
 ### `app/`
@@ -23,7 +45,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
 - **Services/`: Business logic layer to keep Controllers thin.
     - `StripeService`: Interfaces with the Stripe API for session creation and payment handling.
     - `OrderService`: Manages the state machine of an `OrderRequest` (pending $\rightarrow$ invoiced $\rightarrow$ paid).
-    - `CartService`: Handles temporary session-based shopping cart logic.
+    - `CartService`: Handles temporary session-based shopping cart logic with product details storage.
 - **Http/Controllers/**: Request handling and response generation.
     - `InquiryController`: Processes the guest inquiry forms.
     - `StripeWebhookController`: Listens for Stripe events to update order statuses.
@@ -46,6 +68,7 @@ MHFY operates on a "Concierge" workflow where the interaction between customer a
     - `products/`: Public-facing catalog and product detail pages.
     - `admin/`: Administrative dashboard and management interfaces.
     - `inquiry/`: The submission and success views for the inquiry process.
+    - `cart/`: Shopping cart display with product images, names, prices, and totals.
     - `emails/`: HTML templates for automated outgoing communications.
 
 ### `routes/`
