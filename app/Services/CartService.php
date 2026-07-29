@@ -27,9 +27,12 @@ class CartService
      * 
      * @param int $productId
      * @param int $quantity
+     * @param string|null $name
+     * @param float|null $price
+     * @param string|null $image
      * @return void
      */
-    public function addProduct(int $productId, int $quantity): void
+    public function addProduct(int $productId, int $quantity, ?string $name = null, ?float $price = null, ?string $image = null): void
     {
         $cart = $this->getCart();
 
@@ -39,6 +42,9 @@ class CartService
             $cart[$productId] = [
                 'id' => $productId,
                 'quantity' => $quantity,
+                'name' => $name ?? 'Product ' . $productId,
+                'price' => $price ?? 0.00,
+                'image' => $image,
             ];
         }
 

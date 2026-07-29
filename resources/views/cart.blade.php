@@ -9,6 +9,12 @@
 <body class="bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 py-12">
         <h1 class="text-3xl font-bold mb-8">Your Selection</h1>
+        @php
+            $total = 0;
+            foreach($cart as $item) {
+                $total += $item['price'] * $item['quantity'];
+            }
+        @endphp
         
         @if(count($cart) === 0)
             <div class="bg-white p-8 rounded-lg shadow-md text-center">
@@ -30,23 +36,39 @@
                         @foreach($cart as $id => $item)
                         <tr>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-medium">{{ $item['id'] }}</span>
+                                @if($item['image'])
+                                    <img src="{{ asset('storage/'.$item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded-lg">
+                                @else
+                                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=100&h=100&fit=crop" alt="Product placeholder" class="w-12 h-12 object-cover rounded-lg">
+                                @endif
+                                <span class="text-sm font-medium block mt-1">{{ $item['name'] }}</span>
                             </td>
-                            <td class="px-6 py-4 text-sm">{{ $item['quantity'] }}</td>
-                            <td class="px-6 py-4 text-sm">$0.00</td>
-                            <td class="px-6 py-4 text-sm">$0.00</td>
+                            <td class="px-6 py-4">
+                                <form action="{{ route('cart.clear') }}" method="POST" class="inline">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $id }}">
+                                    <button type="submit" class="text-red-600 hover:text-red-800 text-sm">Remove</button>
+                                </form>
+                                <span class="text-sm text-gray-500 ml-2">{{ $item['quantity'] }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-medium">${{ number_format($item['price'], 2) }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="text-sm font-bold">${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div class="p-6 bg-gray-50 flex justify-between items-center">
-                    <span class="text-xl font-bold">Total: $0.00</span>
+                    <span class="text-xl font-bold">Total: ${{ number_format($total, 2) }}</span>
                     <div class="flex space-x-4">
                         <form action="{{ route('cart.clear') }}" method="POST">
                             @csrf
                             <button type="submit" class="text-red-600 hover:underline">Clear Cart</button>
                         </form>
-                        <a href="{{ route('inquiry.create') }}" class="bg-indigo-600 text-white px-6 py-2 rounded-lg">Complete Your Order</a>
+                        <a href="{{ route('inquiry.create', ['cart' => $cart]) }}" class="bg-indigo-600 text-white px-6 py-2 rounded-lg">Complete Your Order</a>
                     </div>
                 </div>
             </div>

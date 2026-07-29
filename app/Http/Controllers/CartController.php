@@ -32,7 +32,13 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->cartService->addProduct($request->product_id, $request->quantity);
+        $product = \App\Models\Product::find($request->product_id);
+
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+
+        $this->cartService->addProduct($request->product_id, $request->quantity, $product->name, $product->price, $product->image);
 
         return redirect()->back()->with('success', 'Product added to cart!');
     }
