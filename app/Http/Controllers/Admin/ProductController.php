@@ -21,6 +21,14 @@ class ProductController extends Controller
     }
 
     /**
+     * Show the form for creating a new product.
+     */
+    public function create(): \Illuminate\View\View
+    {
+        return view('admin.products.create');
+    }
+
+    /**
      * Display the specified product.
      */
     public function show(Product $product): \Illuminate\View\View
