@@ -22,19 +22,25 @@
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-            <div class="p-8 md:p-12">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-                    <div>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 relative h-96 bg-gray-100">
+                    @if($product->image)
+                        <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                    @else
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&h=500&fit=crop" alt="Product placeholder" class="w-full h-full object-cover">
+                    @endif
+                </div>
+                <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <div class="mb-8">
                         <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{{ $product->name }}</h1>
                         <p class="text-lg text-indigo-600 font-semibold">${{ number_format($product->price, 2) }}</p>
                     </div>
-                </div>
 
-                <div class="prose prose-indigo max-w-none text-gray-600 mb-10">
-                    <p class="text-xl leading-relaxed">
-                        {{ $product->description }}
-                    </p>
-                </div>
+                    <div class="prose prose-indigo max-w-none text-gray-600 mb-10">
+                        <p class="text-xl leading-relaxed">
+                            {{ $product->description }}
+                        </p>
+                    </div>
 
                 <div class="border-t border-gray-100 pt-8">
                     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
