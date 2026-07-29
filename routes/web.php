@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\InquiryController;
@@ -38,6 +39,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 // Admin Routes
 Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
     Route::get('/products/{product}', [AdminProductController::class, 'show'])->name('admin.products.show');
     Route::post('/products', [AdminProductController::class, 'store'])->name('admin.products.store');
