@@ -42,11 +42,11 @@
                         @foreach($cart as $id => $item)
                         <tr>
                             <td class="px-6 py-4">
-                                @if($item['image'])
+                                @isset($item['image'])
                                     <img src="{{ asset('storage/'.$item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded-lg">
                                 @else
                                     <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=100&h=100&fit=crop" alt="Product placeholder" class="w-12 h-12 object-cover rounded-lg">
-                                @endif
+                                @endisset
                                 <span class="text-sm font-medium block mt-1">{{ $item['name'] }}</span>
                             </td>
                             <td class="px-6 py-4">
