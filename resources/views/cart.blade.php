@@ -15,14 +15,19 @@
     </nav>
     <div class="max-w-4xl mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-8">Your Selection</h1>
-        @php
-            $total = 0;
-            foreach($cart as $item) {
-                $total += $item['price'] * $item['quantity'];
-            }
-        @endphp
-        
+
         @if(count($cart) === 0)
+            <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                <p class="text-gray-600 mb-4">Your selection is currently empty.</p>
+                <a href="{{ route('products.index') }}" class="text-indigo-600 hover:underline">Explore our collection</a>
+            </div>
+        @else
+            @php
+                $total = 0;
+                foreach($cart as $item) {
+                    $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 0);
+                }
+            @endphp
             <div class="bg-white p-8 rounded-lg shadow-md text-center">
                 <p class="text-gray-600 mb-4">Your selection is currently empty.</p>
                 <a href="{{ route('products.index') }}" class="text-indigo-600 hover:underline">Explore our collection</a>
