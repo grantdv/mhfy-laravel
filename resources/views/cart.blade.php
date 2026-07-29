@@ -28,11 +28,6 @@
                     $total += ($item['price'] ?? 0) * ($item['quantity'] ?? 0);
                 }
             @endphp
-            <div class="bg-white p-8 rounded-lg shadow-md text-center">
-                <p class="text-gray-600 mb-4">Your selection is currently empty.</p>
-                <a href="{{ route('products.index') }}" class="text-indigo-600 hover:underline">Explore our collection</a>
-            </div>
-        @else
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <table class="w-full text-left border-collapse">
                     <thead>
