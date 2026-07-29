@@ -3,11 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\Authenticatable;
 use Illuminate\Foundation\Obligations\SendsEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
+// MANUALLY INCLUDE MISSING INTERFACES TO BYPASS BROKEN AUTOLOADER
+if (!class_exists(\Illuminate\Foundation\Auth\Authenticatable::class)) {
+    require_once __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Foundation/Auth/Authenticatable.php';
+}
+if (!interface_exists(\Illuminate\Foundation\Obligations\SendsEmail::class)) {
+    require_once __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Foundation/Obligations/SendsEmail.php';
+}
 
 /**
  * Represents a platform user.
