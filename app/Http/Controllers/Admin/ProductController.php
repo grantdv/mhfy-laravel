@@ -29,6 +29,14 @@ class ProductController extends Controller
     }
 
     /**
+     * Show the form for editing the specified product.
+     */
+    public function edit(Product $product): \Illuminate\View\View
+    {
+        return view('admin.products.edit', compact('product'));
+    }
+
+    /**
      * Store a new product.
      */
     public function store(Request $request): RedirectResponse
