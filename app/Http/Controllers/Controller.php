@@ -11,8 +11,7 @@ abstract class Controller
      */
     protected function getCartCount(): int
     {
-        $cart = \App\Services\CartService::getCart();
-        return count($cart);
+        return \App\Services\CartService::getCartCount();
     }
 
     //
