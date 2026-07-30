@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Session;
 class CartService
 {
     /**
+     * Retrieves the current cart count (static method for views/routes).
+     * 
+     * @return int
+     */
+    public static function getCartCount(): int
+    {
+        return count(Session::get('cart', []));
+    }
+
+    /**
      * Retrieves the current cart items from the session.
      * 
      * @return array

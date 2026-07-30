@@ -22,7 +22,8 @@ class ProductController extends Controller
     public function index(): \Illuminate\View\View
     {
         $products = Product::where('is_active', true)->latest()->paginate(10);
-        return view('products.index', compact('products'));
+        $cartCount = $this->getCartCount();
+        return view('products.index', compact('products', 'cartCount'));
     }
 
     /**
@@ -33,7 +34,8 @@ class ProductController extends Controller
      */
     public function show(Product $product): \Illuminate\View\View
     {
-        return view('products.show', compact('product'));
+        $cartCount = $this->getCartCount();
+        return view('products.show', compact('product', 'cartCount'));
     }
 
     /**

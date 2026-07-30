@@ -13,7 +13,8 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 Route::get('/', function () {
-    return view('welcome');
+    $cartCount = CartService::getCartCount();
+    return view('welcome', compact('cartCount'));
 });
 
 Route::get('/dashboard', function () {

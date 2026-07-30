@@ -45,9 +45,12 @@ class InquiryController extends Controller
             }
         }
 
+        $cartCount = count($cart);
+
         return view('inquiry', [
             'productName' => $productName,
-            'cart' => $cartWithDetails
+            'cart' => $cartWithDetails,
+            'cartCount' => $cartCount
         ]);
     }
 
@@ -90,6 +93,7 @@ class InquiryController extends Controller
      */
     public function success($order_id): \Illuminate\View\View
     {
-        return view('inquiry.success', compact('orderId'));
+        $cartCount = $this->getCartCount();
+        return view('inquiry.success', compact('orderId', 'cartCount'));
     }
 }
