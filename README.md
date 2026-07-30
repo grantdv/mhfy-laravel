@@ -1,83 +1,182 @@
-# May Harmony Find You (MHFY)
+# MHFY (May Harmony Find You) - Concierge E-Commerce Platform
 
-A bespoke, concierge-driven e-commerce platform designed to provide a high-touch, personalized shopping experience.
+A Laravel-based concierge e-commerce platform that allows customers to submit product inquiries via a guest-friendly checkout flow.
 
-## Project Overview
-MHFY operates on a "Concierge" workflow where the interaction between customer and merchant is mediated by a managed inquiry system. Instead of immediate automated checkout, customers submit inquiries that are reviewed, invoiced, and fulfilled by a human-in-the-loop process.
+## 🎯 Core Features
 
-## Tech Stack
-- **Framework:** Laravel (PHP 8.4)
-- **Database:** PostgreSQL (Production), SQLite (Development)
-- **Payment Gateway:** Stripe
-- **Frontend:** Tailwind CSS, Blade Templates
-- **Workflow:** Concierge (Inquiry $\rightarrow$ Review $\rightarrow$ Invoice $\rightarrow$ Payment $\rightarrow$ Fulfillment)
+### Concierge Workflow
+1. **Customer Inquiry**: Customers submit a form → `OrderRequest` created (`pending`)
+2. **Admin Review**: Site owner reviews the inquiry
+3. **Invoicing**: Admin triggers payment link → `OrderService` → `StripeService` → Email to customer
+4. **Customer Payment**: Customer clicks email link and pays via Stripe
+5. **Webhook Update**: Stripe webhook → `StripeWebhookController` marks order as `paid`
 
-## Features
+### Key Features
+- ✅ Guest-friendly checkout (no forced account creation)
+- ✅ Session-based shopping cart with product details
+- ✅ Product catalog with images and inventory tracking
+- ✅ Admin dashboard for order management
+- ✅ Stripe payment integration
+- ✅ Email invoicing system
+- ✅ Backorder support for out-of-stock items
+
+## 🚀 Quick Start
+
+### Local Development
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+npm run build
+php artisan serve
+```
+
+### Production Deployment
+The application is deployed via Plesk-managed Laravel extension on VPS.
+Git operations must be done through the Plesk interface.
+
+## 📁 Project Structure
+
+```
+app/
+├── Console/Commands/
+│   └── OrderInvoiceCommand.php      # Artisan command to trigger invoicing
+├── Http/Controllers/
+│   ├── Admin/                       # Admin dashboard controllers
+│   │   ├── DashboardController.php
+│   │   ├── OrderController.php
+│   │   └── ProductController.php
+│   ├── CartController.php           # Shopping cart operations
+│   ├── ContactController.php        # Contact form handling
+│   ├── InquiryController.php        # Inquiry checkout flow
+│   ├── OrderHistoryController.php   # Customer order history
+│   ├── ProductController.php        # Product catalog
+│   ├── ProfileController.php        # User profile management
+│   └── StripeWebhookController.php  # Stripe webhook handling
+├── Mail/
+│   └── PaymentInvoice.php           # Payment invoice email template
+├── Models/
+│   ├── OrderItem.php                # Order items
+│   ├── OrderRequest.php             # Order requests
+│   ├── Product.php                  # Products
+│   └── User.php                     # User model
+├── Providers/
+│   └── AppServiceProvider.php       # Service provider registration
+└── Services/
+    ├── CartService.php              # Shopping cart management
+    ├── OrderService.php             # Order business logic
+    └── StripeService.php            # Stripe integration
+```
+
+## 🛠️ Technology Stack
+
+- **Backend**: Laravel 13.23.0 (PHP 8.4)
+- **Database**: SQLite (development), PostgreSQL (production)
+- **Payment**: Stripe PHP SDK
+- **Frontend**: Blade templates with Tailwind CSS
+- **Email**: Laravel Mailables
+
+## 📊 Database Schema
+
+### Products Table
+- `id` - Primary key
+- `name` - Product name
+- `description` - Product description
+- `price` - Product price
+- `image` - Product image path
+- `stock_quantity` - Current stock level
+- `is_backordered` - Whether backorders are allowed
+- `is_active` - Whether product is active
+
+### Order Requests Table
+- `id` - Primary key
+- `full_name` - Customer name
+- `email` - Customer email
+- `shipping_address` - Shipping address
+- `message` - Customer message (nullable)
+- `type` - Order type (`product_order` or `general_inquiry`)
+- `created_at` - Created timestamp
+- `updated_at` - Updated timestamp
+
+### Order Items Table
+- `id` - Primary key
+- `order_request_id` - Foreign key to order requests
+- `product_id` - Foreign key to products
+- `name` - Product name
+- `quantity` - Quantity ordered
+- `price` - Price at time of order
+- `is_backordered` - Whether item is backordered
+
+### Users Table (Extended)
+- All standard Laravel auth fields
+- `details` - JSON field for user details
+
+## 🎨 Cart System
+
+### Implementation
+The cart system uses Laravel's session storage to track products during the guest checkout flow:
+
+- **CartService**: Manages cart state with `getCart()`, `addProduct()`, and `clear()` methods
+- **CartController**: Handles cart operations via routes (`cart.add`, `cart.show`, `cart.clear`)
+- **Product Details**: Cart stores product details (`name`, `price`, `image`) for proper display
+
+### Usage
+```php
+// Add to cart
+$cartService->addProduct($productId, $quantity, $name, $price, $image);
+
+// Get cart
+$cart = $cartService->getCart();
+
+// Get cart count
+$count = $cartService->getCartCount();
+
+// Clear cart
+$cartService->clear();
+```
+
+## 🔄 Navigation Improvements
+
+All public pages now include:
+- Cart icon with item count badge
+- Product catalog link
+- Contact us link
+- Consistent branding ("May Harmony Find You")
+
+## 🐛 Recent Fixes
 
 ### Cart System
-- **Guest Cart**: Session-based shopping cart for guest users
-- **Product Display**: Shows product images, names, and prices in cart
-- **Real-time Totals**: Automatically calculates subtotals and grand total
-- **Cart Navigation**: Cart icon accessible from all public pages
-- **Remove Items**: Ability to remove individual items from cart
+- Fixed `CartController` to pass product details when adding items
+- Added `CartService::getCartCount()` static method for use in routes
+- Fixed `cart.blade.php` ParseError by using proper Blade `@if/@else` structure
+- Added cart count badge to all public pages
 
-### Product Management
-- **Public Catalog**: Beautiful product display with images and hover effects
-- **Product Details**: Full product information page with image display
-- **Admin Management**: Full CRUD operations for products
-- **Stock Tracking**: Real-time inventory management with backorder support
-- **Active/Inactive Status**: Toggle product visibility
+### Product Display
+- Added product images to catalog, product details, and cart pages
+- Fixed product display to show stock status and backorder flags
 
-### User Experience
-- **Concierge Flow**: Guest-friendly checkout without forced account creation
-- **Responsive Design**: Mobile-friendly interface across all pages
-- **Image Upload**: Product images stored and displayed properly
-- **Navigation**: Consistent cart link across all public pages
+### Navigation
+- Added cart icon to all public pages (Welcome, Products, Cart, Inquiry)
+- Fixed navigation to use `$cartCount` variable passed from controllers
+- Implemented null-safe operators for `auth()->user()` calls
 
-## Directory Structure & Component Map
+### Admin Dashboard
+- Created centralized `/admin` landing page with navigation cards
+- Added product CRUD operations with image upload
+- Added order management interface
 
-### `app/`
-- **Models/**: Eloquent models representing the database schema.
-    - `Product`: The core items offered by the concierge.
-    - `OrderRequest`: The central entity for all inquiries (Product Orders or General Inquiries).
-    - `OrderItem`: Individual items within a product order.
-    - `User`: Customer accounts and profile management (Laravel 11+ compatible).
-- **Services/`: Business logic layer to keep Controllers thin.
-    - `StripeService`: Interfaces with the Stripe API for session creation and payment handling.
-    - `OrderService`: Manages the state machine of an `OrderRequest` (pending $\rightarrow$ invoiced $\rightarrow$ paid).
-    - `CartService`: Handles temporary session-based shopping cart logic with product details storage.
-- **Http/Controllers/**: Request handling and response generation.
-    - `InquiryController`: Processes the guest inquiry forms.
-    - `StripeWebhookController`: Listens for Stripe events to update order statuses.
-    - `CartController`: Manages session-based shopping cart operations.
-    - `Admin/`: Namespace for administrative actions.
-        - `DashboardController`: The primary landing page for concierge operations.
-        - `ProductController`: Manages the public catalog and admin product management.
-        - `OrderController`: Manages order review, invoicing, and status updates.
-- **Mail/`: Email templates and logic.
-    - `PaymentInvoice`: The primary communication sent to customers with a Stripe payment link.
-- **Console/Commands/`: CLI tools for administrative tasks.
-    - `OrderInvoiceCommand`: Manually triggers the invoicing process for a specific order.
+### Documentation
+- Updated README with cart system implementation
+- Updated architecture docs with navigation improvements
+- Added comprehensive product display features documentation
 
-### `database/`
-- **migrations/**: Version-controlled database schema.
-- **seeders/**: Initial data for product catalogs and test accounts.
+## 📝 License
 
-### `resources/`
-- **views/**: Blade templates.
-    - `products/`: Public-facing catalog and product detail pages.
-    - `admin/`: Administrative dashboard and management interfaces.
-    - `inquiry/`: The submission and success views for the inquiry process.
-    - `cart/`: Shopping cart display with product images, names, prices, and totals.
-    - `emails/`: HTML templates for automated outgoing communications.
+This project is proprietary software.
 
-### `routes/`
-- `web.php`: Public and authenticated web routes (includes cart routes).
-- `api.php`: API endpoints (if applicable).
+## 👥 Contact
 
-## Core Workflow
-1. **Customer Inquiry:** Customer fills out a form $\rightarrow$ `OrderRequest` created (`pending`).
-2. **Admin Review:** Site owner reviews the request in the dashboard.
-3. **Invoicing:** Admin triggers an invoice $\rightarrow$ `OrderService` calls `StripeService` $\rightarrow$ `PaymentInvoice` email sent.
-4. **Customer Payment:** Customer pays via the secure link.
-5. **Webhook Update:** Stripe notifies the system $\rightarrow$ `StripeWebhookController` marks the order as `paid`.
+For inquiries, please use the contact form on the website.
+

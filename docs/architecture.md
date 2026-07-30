@@ -1,89 +1,263 @@
-# Architecture Overview: May Harmony Find You (MHFY)
+# MHFY Architecture Documentation
 
-This document provides a high-level overview of the MHFY platform's architecture, design patterns, and core workflow.
+## Overview
 
-## Core Philosophy: The Concierge Model
-MHFY is built on a "Concierge" workflow. Unlike traditional e-commerce where a customer automatically checks out and receives a shipping confirmation, MHFY prioritizes a high-touch, human-mediated experience.
-
-1.  **Inquiry:** The customer submits a request (Product Order or General Inquiry).
-2.  **Review:** An administrator reviews the request.
-3.  **Invoicing:** A payment link is manually or programmatically triggered and emailed to the customer.
-4.  **Payment:** The customer pays via Stripe.
-5.  **Fulfillment:** The concierge team fulfills the order.
+MHFY (May Harmony Find You) is a concierge e-commerce platform that implements a unique checkout flow where customers submit product inquiries rather than direct payments. This document outlines the system architecture, data models, and key services.
 
 ## System Architecture
 
-The application follows a standard Laravel architecture with a clear separation of concerns:
+### High-Level Architecture
 
-### 1. Models (Data Layer)
-The core data entities of the system:
-- `Product`: Represents items available in the catalog. Includes attributes for price, stock quantity, image, and "active" status.
-- `OrderRequest`: The central entity. It captures every customer interaction, whether it's a product purchase or a general message. It tracks status (`pending`, `invoiced`, `paid`) and links to Stripe sessions.
-- `OrderItem`: Represents the specific products and quantities within a `product_order` type request.
-- `User`: Handles profile information and (optionally) order history for customers who choose to create an account. Updated to Laravel 11+ structure with proper trait-based authentication.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Customer Interface                        │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
+│  │   Catalog   │  │    Cart     │  │   Inquiry Form      │  │
+│  │  (Products) │  │  (Session)  │  │  (Checkout)         │  │
+│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Laravel Application                        │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ Controllers                                           │   │
+│  │ ├── InquiryController (Guest Checkout)                │   │
+│  │ ├── CartController (Session Management)               │   │
+│  │ ├── ProductController (Catalog Display)               │   │
+│  │ └── Admin Controllers (Order/Product Management)      │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                              │                               │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ Services                                              │   │
+│  │ ├── CartService (Session-based Cart)                  │   │
+│  │ ├── OrderService (Order Business Logic)               │   │
+│  │ └── StripeService (Payment Integration)               │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                              │                               │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ Models (Eloquent)                                     │   │
+│  │ ├── Product (with relationships)                      │   │
+│  │ ├── OrderRequest (with items)                         │   │
+│  │ └── OrderItem (line items)                            │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                              │                               │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ Database (SQLite/PostgreSQL)                          │   │
+│  └──────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    External Services                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
+│  │   Stripe    │  │   Email     │  │   Admin Dashboard   │  │
+│  │  (Payments) │  │  (Mailables)│  │  (Order Management) │  │
+│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### 2. Services (Business Logic Layer)
-To keep controllers thin, core logic is encapsulated in Service classes:
-- `StripeService`: Handles all interactions with the Stripe API, specifically creating Checkout Sessions and managing payment metadata.
-- `OrderService`: Manages the state machine of an `OrderRequest`. It handles the transition from `pending` to `invoiced`, triggers payment emails, and manages stock logic (including backorders).
-- `CartService`: Manages temporary session-based cart data for guest users, including adding products with full product details (name, price, image), viewing cart contents, calculating totals, and clearing the cart.
+## Data Models
 
-### 3. Controllers (Request Handling)
-Controllers handle HTTP requests and return views or JSON:
-- `InquiryController`: Manages the submission of inquiries and the success feedback loop.
-- `StripeWebhookController`: Listens for Stripe events and updates `OrderRequest` statuses.
-- `CartController`: Manages session-based shopping cart operations (add, view, clear).
-- `Admin/DashboardController`: The primary landing page for the concierge team.
-- `Admin/ProductController`: Manages the public catalog and admin product management.
-- `Admin/OrderController`: Manages order review, invoicing, and status updates.
-- `ProfileController`: Manages user-specific account details.
-- `OrderHistoryController`: Provides a view of past customer interactions.
+### Product Model
 
-### 4. Migrations (Database Schema)
-The schema is designed to support a flexible inquiry system. Every request is treated as an `OrderRequest`, allowing the concierge to handle both product sales and general messages through a unified interface. 
+```php
+namespace App\Models;
 
-The production environment utilizes **PostgreSQL** to leverage its advanced data integrity, reliability, and superior JSONB support for potentially complex future product attributes.
+use Illuminate\Database\Eloquent\Model;
 
-## Data Flow: The Checkout Process
+class Product extends Model
+{
+    // Standard Laravel model with stock_quantity, is_backordered, is_active fields
+    // Relationships: orderItems()
+}
+```
 
-1.  **Frontend:** User adds items to the `CartService` via `CartController::add` and submits the `InquiryController@store` form.
-2.  **Backend (OrderService):**
-    - Validates the cart.
-    - Creates an `OrderRequest` with `pending` status.
-    - If it's a product order, it decrements stock and creates `OrderItem` records.
-3.  **Backend (Admin):** Admin reviews the order and triggers the `OrderInvoiceCommand` (or a button in the dashboard).
-4.  **Backend (OrderService + StripeService):**
-    - `OrderService` updates the order to `invoiced`.
-    - `StripeService` creates a Checkout Session.
-    - `Mail::send` triggers the `PaymentInvoice` email.
-5.  **Stripe Webhook:** Once the customer pays, Stripe hits the `StripeWebhookController`, which updates the order to `paid`.
+**Fields:**
+- `id` - Primary key
+- `name` - Product name (string)
+- `description` - Product description (text)
+- `price` - Product price (decimal)
+- `image` - Product image path (string)
+- `stock_quantity` - Current stock level (integer)
+- `is_backordered` - Whether backorders are allowed (boolean)
+- `is_active` - Whether product is active (boolean)
 
-## Recent Updates (July 2026)
+### OrderRequest Model
 
-### Laravel 11+ Migration
-- **User Model**: Updated from Laravel 10+ interface-based authentication to Laravel 11+ trait-based authentication (`Illuminate\Foundation\Auth\User`)
-- **OrderRequest Model**: Updated return type annotations to use fully qualified class names for compatibility with Laravel 11+
-- **App Layout**: Created new `app-layout` Blade component for consistent admin dashboard styling
+```php
+namespace App\Models;
 
-### Cart System Implementation
-- **CartController**: Implemented session-based shopping cart with add, view, and clear functionality
-- **Cart Routes**: Added routes for `cart.add`, `cart.show`, and `cart.clear` in `routes/web.php`
-- **Cart Service Integration**: Integrated `CartService` with product catalog for guest checkout flow
+use Illuminate\Database\Eloquent\Model;
 
-### Infrastructure Fixes
-- **Authentication**: Resolved interface loading issues by using Laravel 11+ compatible model structure
-- **View Components**: Created missing `app-layout.blade.php` component for admin dashboard
-- **Route Registration**: Fixed missing cart routes that were causing 500 errors on products page
+class OrderRequest extends Model
+{
+    // Represents a customer inquiry or order
+    // Relationships: orderItems(), customer()
+}
+```
 
-### Product Display & Cart Navigation
-- **Product Images**: Added image display to product catalog, product details, and cart pages
-- **Cart Link**: Added cart icon to all public pages (Welcome, Products, Product Details, Cart, Inquiry)
-- **Cart Totals**: Implemented real-time total calculation with product details (name, price, image)
-- **Product Details**: Fixed product show page to display product images properly
-- **Admin Product Management**: Added create form for new products with image upload
-- **Stock & Backorder**: Implemented stock quantity tracking and backorder support
+**Fields:**
+- `id` - Primary key
+- `full_name` - Customer name (string)
+- `email` - Customer email (string)
+- `shipping_address` - Shipping address (text)
+- `message` - Customer message (nullable text)
+- `type` - Order type: `product_order` or `general_inquiry`
+- `stripe_session_id` - Stripe checkout session ID (nullable)
+- `created_at` - Created timestamp
+- `updated_at` - Updated timestamp
 
-### Navigation Improvements
-- **Public Navigation**: Cart icon now accessible from all guest-facing pages
-- **Consistent UI**: Unified navigation across all pages for better user experience
-- **Responsive Design**: Mobile-friendly cart display and product grid
+### OrderItem Model
+
+```php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class OrderItem extends Model
+{
+    // Represents a line item in an order
+    // Relationships: orderRequest(), product()
+}
+```
+
+**Fields:**
+- `id` - Primary key
+- `order_request_id` - Foreign key to order requests
+- `product_id` - Foreign key to products
+- `name` - Product name (string)
+- `quantity` - Quantity ordered (integer)
+- `price` - Price at time of order (decimal)
+- `is_backordered` - Whether item is backordered (boolean)
+- `created_at` - Created timestamp
+- `updated_at` - Updated timestamp
+
+## Key Services
+
+### CartService
+
+Manages session-based shopping cart for guest users.
+
+```php
+namespace App\Services;
+
+use Illuminate\Support\Facades\Session;
+
+class CartService
+{
+    // Static method for views/routes to get cart count
+    public static function getCartCount(): int
+    
+    // Get cart items from session
+    public function getCart(): array
+    
+    // Add product to cart with details
+    public function addProduct(int $productId, int $quantity, 
+                               ?string $name = null, 
+                               ?float $price = null, 
+                               ?string $image = null): void
+    
+    // Clear cart
+    public function clear(): void
+}
+```
+
+**Features:**
+- Session-based storage
+- Stores product details (name, price, image) for proper display
+- Supports quantity updates
+- Supports product removal
+
+### OrderService
+
+Manages order business logic and workflow.
+
+```php
+namespace App\Services;
+
+class OrderService
+{
+    // Create order from cart items
+    public function createOrder(array $customerData, array $cartItems): OrderRequest
+    
+    // Update order status
+    public function updateStatus(OrderRequest $order, string $status): void
+    
+    // Generate Stripe session
+    public function generateStripeSession(OrderRequest $order): string
+}
+```
+
+**Workflow:**
+1. Create order with `pending` status
+2. Add items to order
+3. Update status to `invoiced` when admin triggers payment
+4. Update status to `paid` when Stripe webhook confirms payment
+
+### StripeService
+
+Handles Stripe payment integration.
+
+```php
+namespace App\Services;
+
+use Stripe\StripeClient;
+
+class StripeService
+{
+    // Create Stripe checkout session
+    public function createCheckoutSession(OrderRequest $order): string
+    
+    // Send payment link via email
+    public function sendPaymentEmail(OrderRequest $order, string $sessionUrl): void
+}
+```
+
+**Features:**
+- Creates Stripe Checkout Sessions
+- Sends payment links via email
+- Handles webhook verification
+
+## Navigation Architecture
+
+### Public Pages
+All public pages include:
+- Cart icon with item count badge
+- Product catalog link
+- Contact us link
+- Consistent branding ("May Harmony Find You")
+
+### Admin Pages
+Admin dashboard includes:
+- Order management interface
+- Product catalog management
+- Customer inquiries view
+- Payment tracking
+
+## Email Templates
+
+### Payment Invoice
+Professional email template for payment requests:
+- Company branding
+- Order summary
+- Payment link
+- Professional styling
+
+## Security Considerations
+
+- CSRF protection on all forms
+- Input validation on all user inputs
+- Secure Stripe webhook verification
+- Session-based cart (no persistent storage)
+- Protected admin routes with authentication
+
+## Future Enhancements
+
+- Customer account system (voluntary)
+- Order history for logged-in users
+- Email notifications for order status
+- Advanced reporting and analytics
+- Multi-currency support
+- International shipping options
+
