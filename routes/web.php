@@ -6,6 +6,7 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\CartController;
+use App\Services\CartService;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
