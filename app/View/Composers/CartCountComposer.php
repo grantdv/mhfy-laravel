@@ -2,12 +2,13 @@
 
 namespace App\View\Composers;
 
-use App\Services\CartService;
+use Illuminate\Support\Facades\Session;
 
 class CartCountComposer
 {
     public function compose($view)
     {
-        $view->data['cartCount'] = CartService::getCartCount();
+        $cart = Session::get('cart', []);
+        $view->data['cartCount'] = count($cart);
     }
 }
