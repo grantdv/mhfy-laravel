@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Register view composer to make cartCount available to all views
-        View::composer('*', function ($view) {
+        View::composer('*', function (\Illuminate\Contracts\View\View $view) {
             $view->share('cartCount', CartService::getCartCount());
         });
     }
