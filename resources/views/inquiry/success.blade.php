@@ -32,7 +32,7 @@
             </div>
             <h1 class="text-3xl font-bold mb-2 text-gray-900">Order Confirmed</h1>
             <p class="text-gray-600 mb-8">Thank you for your order! Your inquiry has been received and our team will contact you shortly to confirm the next steps.</p>
-            <p class="text-sm text-gray-400 mb-8">Order ID: #{{ $orderId }}</p>
+            <p class="text-sm text-gray-400 mb-8">Order ID: #{{ $order_id }}</p>
             <a href="{{ route('products.index') }}" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700 transition-colors">
                 Continue Browsing
             </a>
