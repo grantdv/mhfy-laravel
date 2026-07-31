@@ -24,8 +24,33 @@ class OrderController extends Controller
      */
     public function index(): \Illuminate\View\View
     {
+        $allOrders = OrderRequest::with('orderItems.orderRequest')->get();
         $orders = OrderRequest::latest()->paginate(10);
-        return view('admin.orders.index', compact('orders'));
+        
+        // Calculate dashboard statistics
+        $totalOrders = $allOrders->count();
+        $paidOrders = $allOrders->where('status', 'paid')->count();
+        $totalRevenue = $allOrders->where('status', 'paid')
+            ->flatMap(fn($order) => $order->orderItems)->sum(fn($item) => $item->price_at_submission * $item->quantity);
+        $conversionRate = $totalOrders > 0 ? round(($paidOrders / $totalOrders) * 100, 2) : 0;
+        
+        // Get low stock products
+        $lowStockProducts = \App\Models\Product::where('stock_quantity', '<=', 5)->get();
+        
+        // Get recent order items for activity feed
+        $recentOrders = OrderItem::with(['orderRequest', 'product'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+        
+        return view('admin.orders.index', compact(
+            'orders',
+            'totalOrders',
+            'totalRevenue',
+            'conversionRate',
+            'lowStockProducts',
+            'recentOrders'
+        ));
     }
 
     /**
