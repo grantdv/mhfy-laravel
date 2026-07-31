@@ -410,3 +410,67 @@ Removed the extra `</div>` tag from line 112.
 ### Testing
 - Verified div nesting is now balanced
 - File compiles without syntax errors
+
+---
+
+## 2026-07-31: OrderItem Model Not Found - Admin Orders 500 Error
+
+### Issue
+When accessing the admin orders page, users received a 500 HTTP error. Log showed:
+
+```
+Class "App\Http\Controllers\Admin\OrderItem" not found
+```
+
+### Root Cause
+The `OrderController::index()` method referenced `OrderItem` model but didn't import it. PHP's autoloader couldn't find the class because it wasn't in the `use` statements.
+
+**Problematic code:**
+```php
+use App\Models\OrderRequest;
+// ... missing OrderItem import ...
+
+public function index(): \Illuminate\View\View
+{
+    $recentOrders = OrderItem::with(['orderRequest', 'product'])
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+    // ERROR: OrderItem class not found!
+}
+```
+
+### Solution
+Added the missing import statement:
+
+**Fixed code:**
+```php
+use App\Models\OrderItem;
+use App\Models\OrderRequest;
+use App\Services\OrderService;
+
+public function index(): \Illuminate\View\View
+{
+    $recentOrders = OrderItem::with(['orderRequest', 'product'])
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+    // FIXED: OrderItem now found via use statement
+}
+```
+
+### Files Changed
+- `app/Http/Controllers/Admin/OrderController.php` - Added `use App\Models\OrderItem;`
+
+### Testing
+- Verified admin orders page loads without errors
+- Dashboard statistics display correctly
+- Recent activity feed shows last 5 orders
+- No "Class not found" errors in logs
+
+### Related Fixes
+- This fix worked in tandem with the dashboard statistics fix (7acf7a7)
+
+### Session Reference
+Session - Admin orders dashboard 500 error troubleshooting
+
