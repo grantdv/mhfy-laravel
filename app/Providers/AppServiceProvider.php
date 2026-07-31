@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
-use App\View\Composers\ViewDataComposer;
 use App\Services\CartService;
 
 /**
@@ -31,8 +29,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Make cart count available to all views
-        View::composer('*', function (View $view) {
-            $view->share('cartCount', CartService::getCartCount());
-        });
+        $this->makeCartCountAvailableToAllViews();
+    }
+
+    /**
+     * Make cart count available to all views.
+     */
+    private function makeCartCountAvailableToAllViews(): void
+    {
+        if (method_exists($this->app['view'], 'composer')) {
+            $this->app['view']->composer('*', function ($view) {
+                $view->share('cartCount', CartService::getCartCount());
+            });
+        }
     }
 }
