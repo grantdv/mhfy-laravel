@@ -101,6 +101,59 @@ Session - Cart completion bug troubleshooting
 
 ---
 
+## 2026-07-31: Undefined variable $cartCount in Navigation - Admin 500 Error
+
+### Issue
+When accessing the admin dashboard or any page using the app layout, users received a 500 HTTP error. Log showed:
+
+```
+Undefined variable $cartCount at .../storage/framework/views/1536b0b12ec90023658a55c29a5966bd.php:65
+```
+
+### Root Cause
+The navigation component (`resources/views/layouts/navigation.blade.php`) uses `$cartCount` to display the cart count badge, but this variable was never passed to the view. The variable was being used in multiple Blade templates but only passed in specific controllers.
+
+**Problematic code in navigation:**
+```blade
+@if($cartCount > 0)
+    <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+        {{ $cartCount }}
+    </span>
+@endif
+```
+
+When rendering pages like the admin dashboard, `$cartCount` was undefined because it wasn't passed from the controller.
+
+### Solution
+Added a view composer in `AppServiceProvider` that makes `$cartCount` available to all views automatically:
+
+**In AppServiceProvider.php:**
+```php
+public function boot(): void
+{
+    // Make cart count available to all views
+    View::composer('*', function (View $view) {
+        $view->share('cartCount', CartService::getCartCount());
+    });
+}
+```
+
+This ensures `$cartCount` is always available in any view that uses the app layout.
+
+### Files Changed
+- `app/Providers/AppServiceProvider.php` - Added view composer to share cartCount
+- `app/View/Composers/ViewDataComposer.php` - Created (can be removed as composer is now in AppServiceProvider)
+
+### Testing
+- Verified cart count badge displays correctly on all pages
+- Admin dashboard and all authenticated routes now load without errors
+- Cart count updates dynamically as cart changes
+
+### Session Reference
+Session - Admin dashboard 500 error troubleshooting
+
+---
+
 ## 2025-01-29: Cart "Complete Order" Button 500 Error
 
 ### Issue
