@@ -93,7 +93,7 @@ class InquiryController extends Controller
      */
     public function success($order_id): \Illuminate\View\View
     {
-        $cartCount = $this->getCartCount();
+        $cartCount = CartService::getCartCount();
         return view('inquiry.success', compact('orderId', 'cartCount'));
     }
 }
