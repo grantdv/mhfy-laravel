@@ -1,6 +1,52 @@
-# Laravel Blade Compiler Issue - Trailing Newline
+# Laravel Blade Compiler Issues
 
-## Problem
+## Issue 1: Missing Closing Blade Tags (Most Common)
+
+### Problem
+Laravel Blade templates with unbalanced tags (missing `@endif`, `@endforeach`, `@endfor`, `@endwhile`, `@endphp`, `@endverbatim`, etc.) cause compilation failures.
+
+### Error Message
+```
+ParseError(code: 0): syntax error, unexpected end of file at .../storage/framework/views/xxx.php:xxx
+```
+
+### Example
+```blade
+@if(empty($cart))
+    <!-- Empty cart content -->
+@else
+    <!-- Inquiry form -->
+</div>
+</div>
+</body>
+</html>
+<!-- MISSING @endif before </body> -->
+```
+
+### Solution
+Always ensure Blade control structures are properly closed:
+```blade
+@if(empty($cart))
+    <!-- Empty cart content -->
+@else
+    <!-- Inquiry form -->
+@endif
+</div>
+</div>
+</body>
+</html>
+```
+
+### Prevention
+- Use IDEs with Blade tag pairing support
+- Run `php -l resources/views/yourfile.blade.php` before deploying
+- Check tag balance: `grep -c '@if' file.blade.php` vs `grep -c '@endif' file.blade.php`
+
+---
+
+## Issue 2: Trailing Newline Missing
+
+### Problem
 The Laravel Blade compiler (version 13.x) does NOT preserve trailing newlines when compiling Blade templates. This causes PHP syntax errors when the compiled view file does not end with a newline character after the closing `?>` tag.
 
 ### Error Message

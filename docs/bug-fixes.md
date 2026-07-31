@@ -1,5 +1,58 @@
 # Bug Fixes Log
 
+## 2026-07-31: inquiry.blade.php Missing @endif Tag - 500 Error
+
+### Issue
+Production server returned 500 HTTP error when accessing the inquiry/cart page. Log showed:
+
+```
+ParseError(code: 0): syntax error, unexpected end of file at .../storage/framework/views/69ddbbc827be714e6e5f66d12cd86da0.php:116
+```
+
+### Root Cause
+The `resources/views/inquiry.blade.php` file was missing a closing `@endif` tag for the `@if(empty($cart))` conditional block.
+
+**Problematic structure:**
+```blade
+@if(empty($cart))
+    <!-- Empty cart content -->
+@else
+    <!-- Inquiry form -->
+</div>
+</div>
+</body>
+</html>
+<!-- MISSING @endif before </body> -->
+```
+
+The `@if(empty($cart))` block at line 36 was never closed, causing the Blade compiler to generate invalid PHP code.
+
+### Solution
+Added the missing `@endif` tag before `</body>`:
+
+```blade
+</div>
+</div>
+@endif
+
+</body>
+</html>
+```
+
+### Files Changed
+- `resources/views/inquiry.blade.php` - Added missing `@endif` tag
+
+### Testing
+- Verified Blade tag balance: 2 @if / 2 @endif
+- All Blade tags now properly balanced
+- File compiles without syntax errors
+- 500 error should be resolved
+
+### Session Reference
+Session - Cart completion bug troubleshooting
+
+---
+
 ## 2025-01-29: Cart "Complete Order" Button 500 Error
 
 ### Issue
