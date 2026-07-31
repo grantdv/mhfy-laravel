@@ -1,5 +1,53 @@
 # Bug Fixes Log
 
+## 2026-07-31: InquiryController::success() Undefined Variable Error - 500 Error
+
+### Issue
+After completing checkout and clicking submit on the inquiry form, users received a 500 HTTP error. Log showed:
+
+```
+compact(): Undefined variable $orderId at .../app/Http/Controllers/InquiryController.php:97
+```
+
+### Root Cause
+In `InquiryController::success()` method, the parameter was named `$order_id` (with underscore) but `compact()` was trying to use `orderId` (camelCase).
+
+**Problematic code:**
+```php
+public function success($order_id): \Illuminate\View\View
+{
+    $cartCount = CartService::getCartCount();
+    return view('inquiry.success', compact('orderId', 'cartCount')); // ERROR: $orderId doesn't exist!
+}
+```
+
+PHP's `compact()` function looks for variables with the exact names provided. Since `$order_id` exists but `$orderId` does not, the function fails.
+
+### Solution
+Changed `compact('orderId', 'cartCount')` to `compact('order_id', 'cartCount')` to match the actual parameter name.
+
+**Corrected code:**
+```php
+public function success($order_id): \Illuminate\View\View
+{
+    $cartCount = CartService::getCartCount();
+    return view('inquiry.success', compact('order_id', 'cartCount')); // FIXED
+}
+```
+
+### Files Changed
+- `app/Http/Controllers/InquiryController.php` - Fixed variable name in compact()
+
+### Testing
+- Verified variable name consistency between parameter and compact()
+- Checkout success page should now render correctly
+- Order confirmation with order ID should display
+
+### Session Reference
+Session - Checkout success page bug troubleshooting
+
+---
+
 ## 2026-07-31: inquiry.blade.php Missing @endif Tag - 500 Error
 
 ### Issue
