@@ -94,6 +94,6 @@ class InquiryController extends Controller
     public function success($order_id): \Illuminate\View\View
     {
         $cartCount = CartService::getCartCount();
-        return view('inquiry.success', compact('orderId', 'cartCount'));
+        return view('inquiry.success', compact('order_id', 'cartCount'));
     }
 }
