@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Register view composer to make cartCount available to all views
-        $this->app['view']->composer(ViewDataComposer::class);
+        $this->app['view']->composer('*', new ViewDataComposer());
     }
 }
