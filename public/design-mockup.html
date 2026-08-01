@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Harmony Find You - Design Mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Figtree', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#2D1B69',
+                            medium: '#4A3B7A',
+                            light: '#7B68EE',
+                            accent: '#9B59B6',
+                            warm: '#E8D5B5',
+                            cream: '#F5F0E6'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-135': 'linear-gradient(135deg, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 50%, var(--tw-gradient-to) 100%)',
+                        'gradient-hero': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+                        'gradient-warm': 'linear-gradient(135deg, #E8D5B5 0%, #F5F0E6 100%)',
+                        'gradient-teal': 'linear-gradient(135deg, #2D1B69 0%, #7B68EE 100%)',
+                        'gradient-rose': 'linear-gradient(135deg, #9B59B6 0%, #E91E63 100%)',
+                        'gradient-sage': 'linear-gradient(135deg, #4A3B7A 0%, #27AE60 100%)',
+                        'gradient-gold': 'linear-gradient(135deg, #F39C12 0%, #E74C3C 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            grid-auto-rows: minmax(150px, auto);
+        }
+        
+        .mosaic-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .mosaic-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .mosaic-item.span-2 { grid-column: span 2; }
+        .mosaic-item.span-3 { grid-column: span 3; }
+        .mosaic-item.span-4 { grid-column: span 4; }
+        .mosaic-item.span-6 { grid-column: span 6; }
+        .mosaic-item.span-8 { grid-column: span 8; }
+        .mosaic-item.span-12 { grid-column: span 12; }
+        
+        @media (max-width: 768px) {
+            .mosaic-grid {
+                grid-template-columns: 1fr;
+            }
+            .mosaic-item {
+                grid-column: span 1 !important;
+            }
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F39C12, #E74C3C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">M</span>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-135 bg-clip-text text-transparent">
+                        May Harmony Find You
+                    </span>
+                </a>
+                
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input type="text" placeholder="Search our curated selection..." 
+                            class="w-full pl-12 pr-4 py-3 rounded-full bg-gray-100 border-none focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- User Utilities -->
+                <div class="flex items-center space-x-6">
+                    <a href="/wishlist" class="relative group">
+                        <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 rounded-full text-white text-xs flex items-center justify-center">3</span>
+                    </a>
+                    <a href="/cart" class="relative group">
+                        <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-brand-accent rounded-full text-white text-xs flex items-center justify-center">2</span>
+                    </a>
+                    <a href="/account" class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
+        <div class="absolute inset-0 hero-pattern"></div>
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1596436889106-be35e843f974?w=1920'); background-size: cover; background-position: center;"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <span class="inline-block px-6 py-2 mb-6 rounded-full bg-brand-warm text-brand-dark font-semibold text-lg shadow-lg">
+                ✨ Curated Experiences for the Discerning
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                Tea without passion is bland.
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto">
+                Discover artisanal blends sourced from the world's finest tea gardens, hand-selected with care and delivered with ceremony.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/shop" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-brand-dark font-bold text-lg hover:bg-brand-warm transition-all duration-300 shadow-2xl hover:shadow-brand-warm/50">
+                    Explore Our Collection
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+                <a href="/about" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all duration-300">
+                    Our Story
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Mosaic Content Grid -->
+    <section class="py-20 px-4 bg-brand-cream">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-4">Curating Excellence</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Every selection tells a story of tradition, craftsmanship, and dedication to quality.
+                </p>
+            </div>
+            
+            <div class="mosaic-grid">
+                <!-- Large feature block -->
+                <div class="mosaic-item span-6 rounded-3xl overflow-hidden mosaic-item">
+                    <div class="h-full bg-gradient-135 p-8 md:p-12 flex flex-col justify-center">
+                        <span class="text-white font-semibold text-lg mb-4">🌿 Organic & Sustainable</span>
+                        <h3 class="text-3xl font-bold text-white mb-4">Ethically Sourced, Perfectly Picked</h3>
+                        <p class="text-white/90 mb-6">
+                            We work directly with family-owned tea gardens across four countries, ensuring fair wages and sustainable practices. Every leaf tells a story of care.
+                        </p>
+                        <a href="/sustainability" class="inline-flex items-center text-white font-semibold hover:underline">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Small stat block -->
+                <div class="mosaic-item span-2 rounded-3xl bg-gradient-teal p-6 mosaic-item">
+                    <div class="text-white text-center">
+                        <div class="stat-number mb-2">100%</div>
+                        <p class="text-white/90 text-sm">Organic</p>
+                    </div>
+                </div>
+                
+                <!-- Small stat block -->
+                <div class="mosaic-item span-2 rounded-3xl bg-gradient-rose p-6 mosaic-item">
+                    <div class="text-white text-center">
+                        <div class="stat-number mb-2">24</div>
+                        <p class="text-white/90 text-sm">Countries</p>
+                    </div>
+                </div>
+                
+                <!-- Small stat block -->
+                <div class="mosaic-item span-2 rounded-3xl bg-gradient-gold p-6 mosaic-item">
+                    <div class="text-white text-center">
+                        <div class="stat-number mb-2">50+</div>
+                        <p class="text-white/90 text-sm">Years</p>
+                    </div>
+                </div>
+                
+                <!-- Medium block with image -->
+                <div class="mosaic-item span-3 rounded-3xl overflow-hidden mosaic-item">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600" 
+                         alt="Hand-picked tea leaves" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Small block -->
+                <div class="mosaic-item span-2 rounded-3xl bg-gradient-sage p-6 mosaic-item">
+                    <div class="text-white text-center">
+                        <i class="fas fa-truck text-2xl mb-2"></i>
+                        <p class="text-white/90 text-sm">Free Shipping</p>
+                    </div>
+                </div>
+                
+                <!-- Large block -->
+                <div class="mosaic-item span-3 rounded-3xl overflow-hidden mosaic-item">
+                    <div class="h-full bg-gradient-135 p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-white mb-3">Master Blenders</h3>
+                        <p class="text-white/90 mb-4">
+                            Our team of expert tea masters has spent decades perfecting the art of blending. Each creation is a labor of love.
+                        </p>
+                        <a href="/team" class="inline-flex items-center text-white font-semibold hover:underline">
+                            Meet the Team <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Small image block -->
+                <div class="mosaic-item span-2 rounded-3xl overflow-hidden mosaic-item">
+                    <img src="https://images.unsplash.com/photo-1563911302283-d2bc129e7c1f?w=400" 
+                         alt="Tea ceremony" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Wall -->
+    <section class="py-24 px-4 bg-gradient-teal relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="relative z-10 text-center max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Elevate Your Daily Ritual
+            </h2>
+            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+                Transform your morning routine into a moment of peace and mindfulness. Join thousands who've discovered the art of fine tea.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/shop" class="inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-brand-dark font-bold text-lg hover:bg-brand-warm transition-all duration-300 shadow-2xl">
+                    Start Your Journey
+                </a>
+                <a href="/gift-cards" class="inline-flex items-center justify-center px-10 py-5 rounded-full bg-brand-warm text-brand-dark font-bold text-lg hover:bg-white/20 transition-all duration-300">
+                    Gift Cards
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-2">Curated Selections</h2>
+                    <p class="text-lg text-gray-600">Hand-picked favorites from our master blenders</p>
+                </div>
+                <a href="/shop" class="inline-flex items-center text-brand-accent font-semibold hover:text-brand-dark transition-colors">
+                    See All Products
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1597481499750-3e642c647b70?w=400" 
+                             alt="Jasmine Dragon Pearl Tea" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 text-brand-dark text-xs font-semibold">Bestseller</span>
+                        <button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:scale-110 transition-all shadow-lg">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-brand-dark mb-2">Jasmine Dragon Pearl</h3>
+                        <p class="text-gray-600 text-sm mb-4">Delicate jasmine flowers hand-rolled with premium green tea</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-brand-accent">$24.00</span>
+                            <button class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white hover:scale-110 transition-transform">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1564890369478-c553f7363391?w=400" 
+                             alt="Darjeeling First Flush" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-brand-warm text-brand-dark text-xs font-semibold">Limited</span>
+                        <button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:scale-110 transition-all shadow-lg">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-brand-dark mb-2">Darjeeling First Flush</h3>
+                        <p class="text-gray-600 text-sm mb-4">Rare spring harvest with delicate muscatel flavor</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-brand-accent">$32.00</span>
+                            <button class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white hover:scale-110 transition-transform">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1563829280567-f6c12a67c872?w=400" 
+                             alt="Chamomile Dreams" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:scale-110 transition-all shadow-lg">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-brand-dark mb-2">Chamomile Dreams</h3>
+                        <p class="text-gray-600 text-sm mb-4">Gentle, soothing blend perfect for evening relaxation</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-brand-accent">$18.00</span>
+                            <button class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white hover:scale-110 transition-transform">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1564890369478-c553f7363391?w=400" 
+                             alt="Matcha Ceremonial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 text-brand-dark text-xs font-semibold">Premium</span>
+                        <button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-red-500 hover:scale-110 transition-all shadow-lg">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-brand-dark mb-2">Matcha Ceremonial</h3>
+                        <p class="text-gray-600 text-sm mb-4">Stone-ground, stone-milled Japanese matcha</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-brand-accent">$45.00</span>
+                            <button class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center text-white hover:scale-110 transition-transform">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Another CTA Wall -->
+    <section class="py-24 px-4 bg-gradient-rose relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="relative z-10 text-center max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Find Your Perfect Match
+            </h2>
+            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+                Take our curated quiz and discover teas tailored to your taste preferences and lifestyle.
+            </p>
+            <a href="/quiz" class="inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-brand-dark font-bold text-lg hover:bg-brand-warm transition-all duration-300 shadow-2xl">
+                Take the Quiz <i class="fas fa-magic ml-3"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">M</span>
+                        </div>
+                        <span class="text-2xl font-bold">May Harmony Find You</span>
+                    </div>
+                    <p class="text-gray-300 mb-6">
+                        Curating exceptional tea experiences for the discerning soul. Every sip, every moment, every ritual.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Products Column -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Shop</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">All Teas</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Green Tea</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Black Tea</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Herbal Tea</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Matcha</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Tea Accessories</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Customer Care Column -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Customer Care</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Track Order</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Gift Cards</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Sustainability</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Trust Signals Column -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Why Choose Us</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Free Shipping</p>
+                                <p class="text-gray-400 text-sm">On orders over $50</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-undo"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">30-Day Returns</p>
+                                <p class="text-gray-400 text-sm">Hassle-free returns</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Secure Payment</p>
+                                <p class="text-gray-400 text-sm">Encrypted transactions</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-135 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">5-Star Rated</p>
+                                <p class="text-gray-400 text-sm">4.9/5 from 10,000+ reviews</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        &copy; 2024 May Harmony Find You. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
