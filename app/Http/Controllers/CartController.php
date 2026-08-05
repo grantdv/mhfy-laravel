@@ -51,7 +51,7 @@ class CartController extends Controller
     public function show(): \Illuminate\View\View
     {
         $cart = $this->cartService->getCart();
-        $cartCount = count($cart);
+        $cartCount = CartService::getCartCount();
         return view('cart', compact('cart', 'cartCount'));
     }
 
