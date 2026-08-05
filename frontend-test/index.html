@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Harmony Find You - Brand Colors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Figtree', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#04405F',
+                            medium: '#3483EB',
+                            light: '#8AE1F0',
+                            accent: '#f5771d', // NEW ORANGE ACCENT
+                            bgLight: '#F0FCFD',
+                            bgMedium: '#D2F4F9',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-brand': 'linear-gradient(135deg, #3483EB 0%, #1DC5E1 50%, #8AE1F0 100%)',
+                        'gradient-accent': 'linear-gradient(135deg, #f5771d 0%, #e65c00 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* White background around logo to prevent gradient bleeding */
+        .logo-white-bg {
+            background-color: white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="font-sans bg-white">
+    <!-- Navigation Bar -->
+    <nav class="bg-brand-dark text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="logo-white-bg">
+                    <img src="/images/logo.png" alt="May Harmony Find You Logo" class="h-12 w-auto">
+                </div>
+                <span class="text-xl font-bold">May Harmony Find You</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-brand-medium transition">Home</a>
+                <a href="#products" class="hover:text-brand-medium transition">Products</a>
+                <a href="#about" class="hover:text-brand-medium transition">About</a>
+                <a href="#contact" class="hover:text-brand-medium transition">Contact</a>
+            </div>
+            <div>
+                <a href="/login" class="btn-brand-outline text-sm py-2 px-4 rounded">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-brand text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="logo-white-bg bg-white/90 backdrop-blur-sm">
+                    <img src="/images/logo.png" alt="May Harmony Find You Logo" class="h-20 w-auto mx-auto">
+                </div>
+            </div>
+            <h1 class="text-5xl font-bold mb-4">May Harmony Find You</h1>
+            <p class="text-xl mb-8">Discover tranquility and balance in your daily life</p>
+            <a href="#products" class="btn-brand text-lg py-3 px-8 rounded-lg font-bold">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 bg-brand-bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-12">Our Products</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 border-2 border-brand-accent">
+                    <div class="text-brand-accent text-4xl mb-4"><i class="fas fa-star"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Product 1</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="btn-brand w-full">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 2</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="btn-brand w-full">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 3</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="btn-brand w-full">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orange Accent Showcase Section -->
+    <section class="py-16 bg-gradient-accent text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Orange Accent Color</h2>
+            <p class="text-lg mb-8 opacity-90">Using #f5771d as an accent color</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Accent Usage Examples</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Star ratings and badges</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Call-to-action highlights</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Special promotions</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Icon highlights</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Color Palette Comparison</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-dark"></div>
+                            <span class="text-sm">Dark: #04405F</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-medium"></div>
+                            <span class="text-sm">Blue: #3483EB</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-light"></div>
+                            <span class="text-sm">Light: #8AE1F0</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-accent shadow-lg shadow-orange-500/50"></div>
+                            <span class="text-sm font-semibold">Accent: #f5771d</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Color Palette Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-8">Brand Color Palette</h2>
+            <p class="text-center text-gray-600 mb-12">Colors extracted from your official logo</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Primary Colors -->
+                <div class="bg-brand-bg-light rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-brand-dark mb-4">Primary Brand Colors</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="h-8 bg-brand-medium rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#3483EB - Primary Dark</p>
+                        </div>
+                        <div>
+                            <div class="h-8 bg-brand-light rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#1DC5E1 - Primary Medium</p>
+                        </div>
+                        <div>
+                            <div class="h-8 bg-brand-light rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#8AE1F0 - Primary Light</p>
+                        </div>
+                        <div>
+                            <div class="h-8 bg-brand-bgLight rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#F0FCFD - Very Light (Background)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accent Color -->
+                <div class="bg-orange-50 rounded-lg p-6 border-2 border-brand-accent">
+                    <h3 class="text-xl font-semibold text-brand-dark mb-4">Accent Color</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="h-8 bg-brand-accent rounded mb-2 shadow-lg shadow-orange-500/30"></div>
+                            <p class="text-sm text-gray-600 font-semibold">#f5771d - Orange Accent</p>
+                        </div>
+                        <div>
+                            <div class="h-4 bg-orange-200 rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#FDB863 - Light Orange</p>
+                        </div>
+                        <div>
+                            <div class="h-4 bg-orange-400 rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#EA580C - Dark Orange</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dark Theme Colors -->
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-brand-dark mb-4">Dark Theme Colors</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="h-8 bg-brand-dark rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#04405F - Dark Primary</p>
+                        </div>
+                        <div>
+                            <div class="h-8 bg-dark-800 rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#1a1a1a - Dark Gray 800</p>
+                        </div>
+                        <div>
+                            <div class="h-8 bg-dark-600 rounded mb-2"></div>
+                            <p class="text-sm text-gray-600">#3a3a3a - Dark Gray 600</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Usage Guide -->
+            <div class="mt-12 bg-brand-bgMedium rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-brand-dark mb-4">Recommended Usage</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-brand-medium mb-2">Navigation & Footer</h4>
+                        <p class="text-sm text-gray-600">Use <span class="font-mono text-brand-dark">#04405F</span> for dark backgrounds</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-brand-medium mb-2">Buttons & CTAs</h4>
+                        <p class="text-sm text-gray-600">Use <span class="font-mono text-brand-medium">#3483EB</span> for primary actions</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-brand-medium mb-2">Accent Highlights</h4>
+                        <p class="text-sm text-gray-600">Use <span class="font-mono text-brand-accent">#f5771d</span> for special emphasis, ratings, and promotions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="logo-white-bg bg-white/90 backdrop-blur-sm mx-auto mb-4">
+                    <img src="/images/logo.png" alt="May Harmony Find You Logo" class="h-10 w-auto mx-auto">
+                </div>
+                <p>&copy; 2024 May Harmony Find You. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/build/assets/app-zqGFmKvW.js"></script>
+</body>
+</html>
