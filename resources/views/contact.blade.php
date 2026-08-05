@@ -6,28 +6,28 @@
     <title>Contact Us | May Harmony Find You</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-white shadow-sm">
+<body class="bg-brand-bg-light">
+    <nav class="bg-brand-dark text-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">May Harmony Find You</a>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
-                    <a href="{{ route('contact') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Contact Us</a>
+                    <a href="{{ route('products.index') }}" class="text-brand-light hover:text-white font-medium">Products</a>
+                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact Us</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h1 class="text-3xl font-bold mb-2 text-gray-900">Contact Our Concierge</h1>
+        <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light">
+            <h1 class="text-3xl font-bold mb-2 text-brand-dark">Contact Our Concierge</h1>
             <p class="text-gray-600 mb-8">Our concierge team is here to ensure your experience is seamless. If you have any questions regarding our services or wish to discuss a bespoke request, please share your message below. We will respond promptly to assist you.</p>
             
             @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
+                <div class="bg-brand-bg-light border border-brand-orange text-brand-orange px-4 py-3 rounded relative mb-6" role="alert">
                     {{ session('success') }}
                 </div>
             @endif
@@ -36,20 +36,20 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <label class="block text-sm font-medium text-brand-dark mb-1">Name</label>
+                        <input type="text" name="name" required class="w-full px-4 py-2 border border-brand-light rounded-lg focus:ring-2 focus:ring-brand-medium focus:border-brand-medium outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <label class="block text-sm font-medium text-brand-dark mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-2 border border-brand-light rounded-lg focus:ring-2 focus:ring-brand-medium focus:border-brand-medium outline-none">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                    <textarea name="message" rows="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+                    <label class="block text-sm font-medium text-brand-dark mb-1">Message</label>
+                    <textarea name="message" rows="5" required class="w-full px-4 py-2 border border-brand-light rounded-lg focus:ring-2 focus:ring-brand-medium focus:border-brand-medium outline-none"></textarea>
                 </div>
                 <div class="pt-2">
-                    <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-100">
+                    <button type="submit" class="w-full bg-brand-medium text-white font-bold py-3 rounded-lg hover:bg-brand-light transition-colors shadow-lg shadow-brand-bg-light">
                         Send Message
                     </button>
                 </div>

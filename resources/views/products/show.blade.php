@@ -6,35 +6,35 @@
     <title>{{ $product->name }} | May Harmony Find You</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-white shadow-sm">
+<body class="bg-brand-bg-light">
+    <nav class="bg-brand-dark text-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-indigo-600">May Harmony Find You</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">May Harmony Find You</a>
                 </div>
                 <div class="flex space-x-4 items-center">
-                    <a href="{{ route('cart.show') }}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 hover:bg-gray-50 focus:outline-none transition duration-150 ease-in-out relative">
+                    <a href="{{ route('cart.show') }}" class="inline-flex items-center px-3 py-2 border border-brand-light text-sm leading-4 font-medium rounded-md text-brand-light bg-brand-bg-light hover:bg-brand-light hover:text-brand-dark focus:outline-none transition duration-150 ease-in-out relative">
                         <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
                         Cart
                         @if(isset($cartCount) && $cartCount > 0)
-                            <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            <span class="absolute -top-1 -right-2 bg-brand-orange text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                                 {{ $cartCount ?? 0 }}
                             </span>
                         @endif
                     </a>
-                    <a href="{{ route('products.index') }}" class="text-gray-600 hover:text-indigo-600 font-medium">Back to Catalog</a>
+                    <a href="{{ route('products.index') }}" class="text-brand-light hover:text-white font-medium">Back to Catalog</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-brand-light">
             <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 relative h-96 bg-gray-100">
+                <div class="md:w-1/2 relative h-96 bg-brand-bg-medium">
                     @if($product->image)
                         <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                     @else
@@ -43,23 +43,23 @@
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
                     <div class="mb-8">
-                        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{{ $product->name }}</h1>
-                        <p class="text-lg text-indigo-600 font-semibold">${{ number_format($product->price, 2) }}</p>
+                        <h1 class="text-4xl font-extrabold text-brand-dark mb-2">{{ $product->name }}</h1>
+                        <p class="text-lg text-brand-medium font-semibold">${{ number_format($product->price, 2) }}</p>
                     </div>
 
-                    <div class="prose prose-indigo max-w-none text-gray-600 mb-10">
+                    <div class="prose prose-brand max-w-none text-gray-600 mb-10">
                         <p class="text-xl leading-relaxed">
                             {{ $product->description }}
                         </p>
                     </div>
 
-                <div class="border-t border-gray-100 pt-8">
+                <div class="border-t border-brand-light pt-8">
                     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-6">
                         <div class="text-gray-600">
                             @if($product->stock_quantity > 0)
                                 <span class="text-green-600 font-bold">In Stock ({{ $product->stock_quantity }} available)</span>
                             @else
-                                <span class="text-orange-600 font-bold">Backordered</span>
+                                <span class="text-brand-orange font-bold">Backordered</span>
                             @endif
                         </div>
                         
@@ -67,7 +67,7 @@
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-700 transition duration-300 shadow-lg shadow-indigo-200">
+                            <button type="submit" class="bg-brand-medium text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light">
                                 Add to Selection
                             </button>
                         </form>

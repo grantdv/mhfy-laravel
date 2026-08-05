@@ -14,6 +14,17 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                // Brand colors from logo
+                brand: {
+                    dark: '#04405F',
+                    medium: '#3483EB',
+                    light: '#8AE1F0',
+                    accent: '#f5771d', // NEW ORANGE ACCENT
+                    bgLight: '#F0FCFD',
+                    bgMedium: '#D2F4F9',
+                }
+            },
         },
     },
 

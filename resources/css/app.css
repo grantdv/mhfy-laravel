@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom brand colors from logo */
+:root {
+    --brand-primary: #0BC0DF;
+    --brand-secondary: #1DC5E1;
+    --brand-light: #8AE1F0;
+    --brand-bg-light: #F0FCFD;
+    --brand-bg-medium: #D2F4F9;
+    --text-dark: #0a0a0a;
+    --text-gray: #6a6a6a;
+    --text-light: #ffffff;
+}
+
+/* Apply brand colors to Tailwind */
+@layer components {
+    .btn-brand {
+        @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold py-2 px-4 rounded;
+    }
+    
+    .btn-brand-outline {
+        @apply border-2 border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-white font-semibold py-2 px-4 rounded;
+    }
+    
+    .text-brand {
+        @apply text-brand-500;
+    }
+    
+    .bg-brand {
+        @apply bg-brand-500;
+    }
+    
+    .bg-brand-light {
+        @apply bg-brand-100;
+    }
+    
+    .bg-brand-bg-light {
+        @apply bg-brand-bg-light;
+    }
+}
+
+/* Dark theme support */
+@layer base {
+    body {
+        @apply bg-white text-gray-900;
+    }
+    
+    .dark body {
+        @apply bg-dark-900 text-gray-100;
+    }
+}
