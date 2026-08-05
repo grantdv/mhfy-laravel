@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to May Harmony Find You</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#04405F',
+                            medium: '#3483EB',
+                            light: '#8AE1F0',
+                            accent: '#f5771d',
+                            bgLight: '#F0FCFD',
+                            bgMedium: '#D2F4F9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-brand-bg-light">
     <nav class="bg-brand-dark text-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -33,8 +51,8 @@
     </nav>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h1 class="text-3xl font-bold mb-2 text-gray-900">Welcome to May Harmony Find You</h1>
+        <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light">
+            <h1 class="text-3xl font-bold mb-2 text-brand-dark">Welcome to May Harmony Find You</h1>
             <p class="text-gray-600 mb-8">Your premier concierge for bespoke experiences and high-end services.</p>
             
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
