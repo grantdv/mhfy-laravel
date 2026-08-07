@@ -25,17 +25,36 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Logo and Box -->
     <section class="bg-gradient-brand text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center mb-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-center mb-8">
                 <div class="logo-white-bg bg-white/90 backdrop-blur-sm">
                     <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-20 w-auto mx-auto">
                 </div>
             </div>
-            <h1 class="text-5xl font-bold mb-4">May Harmony Find You</h1>
-            <p class="text-xl mb-8">Discover tranquility and balance in your daily life</p>
-            <a href="{{ route('products.index') }}" class="bg-brand text-lg py-3 px-8 rounded-lg font-bold text-white">Explore Now</a>
+            
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl font-bold mb-6 text-center">May Harmony Find You</h1>
+                <p class="text-xl mb-12 text-center">Discover tranquility and balance in your daily life</p>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light">
+                    <h2 class="text-3xl font-bold text-brand-dark mb-6 text-center">Welcome</h2>
+                    <p class="text-gray-600 mb-8 text-center">
+                        Your premier concierge for bespoke experiences and high-end services. 
+                        Our team is dedicated to ensuring your experience is seamless.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+                        <a href="{{ route('products.index') }}" class="inline-block bg-brand-medium text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light text-center">
+                            Explore Our Services
+                        </a>
+                        <a href="{{ route('contact') }}" class="inline-block bg-brand-bg-light text-brand-dark px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 text-center">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
