@@ -47,12 +47,8 @@
     <!-- Orange Accent Showcase Section -->
     <section class="py-16 bg-gradient-accent text-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">Orange Accent Color</h2>
-            <p class="text-lg mb-8 opacity-90">Using #f5771d as an accent color</p>
-            
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div class="bg-white/10 backdrop-blur rounded-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4">Accent Usage Examples</h3>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4">
                             <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
@@ -74,7 +70,6 @@
                 </div>
 
                 <div class="bg-white/10 backdrop-blur rounded-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4">Color Palette Comparison</h3>
                     <div class="space-y-3">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded bg-brand-dark"></div>
