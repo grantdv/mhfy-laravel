@@ -248,45 +248,39 @@ body > nav, body > div, main {
 /* Grid and product cards */
 body .grid, main .grid, .max-w-7xl .grid {
     width: 100%;
-    max-width: none;
-}
-
-/* Logo white background box */
-.logo-white-bg {
-    background-color: white;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* Logo image size constraints - prevent huge images from breaking layout */
+/* Logo image size constraints - FIX for huge images */
 .logo-white-bg img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    height: auto !important;
+    max-width: none !important;
     width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
 }
 
-/* Navigation logo - 48px height */
+/* Navigation logo - 48px height (h-12 in Tailwind) */
 .logo-white-bg.inline-block img {
     height: 48px !important;
     width: auto !important;
     max-width: none !important;
+    max-height: none !important;
 }
 
-/* Hero section logo - 80px height */
-.logo-white-bg.bg-white\/90 img {
+/* Hero section logo - 80px height (h-20 in Tailwind) */
+.logo-white-bg.bg-white\/90 img,
+.logo-white-bg.bg-white\/90 + img {
     height: 80px !important;
     width: auto !important;
     max-width: none !important;
+    max-height: none !important;
 }
 
-/* Ensure logo containers don't stretch */
+/* Ensure logo containers don't stretch to full width */
 .logo-white-bg {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    max-width: none !important;
+    display: inline-block !important;
+    max-width: 100px !important;
     width: auto !important;
+}
+
+/* Prevent images from being too wide */
+.logo-white-bg img {
+    max-width: 200px !important;
 }
