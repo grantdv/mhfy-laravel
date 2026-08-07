@@ -21,9 +21,6 @@
                     <a href="{{ route('products.index') }}" class="text-brand-light hover:text-brand-medium transition">Products</a>
                     <a href="{{ route('contact') }}" class="text-brand-light hover:text-brand-medium transition">Contact</a>
                 </div>
-                <div>
-                    <a href="{{ route('login') }}" class="bg-brand-medium text-white px-4 py-2 rounded text-sm font-semibold">Login</a>
-                </div>
             </div>
         </div>
     </nav>
@@ -38,9 +35,14 @@
             </div>
             <h1 class="text-5xl font-bold mb-4">May Harmony Find You</h1>
             <p class="text-xl mb-8">Discover tranquility and balance in your daily life</p>
-            <a href="{{ route('products.index') }}" class="bg-brand-accent text-white text-lg py-3 px-8 rounded-lg font-bold hover:bg-orange-600 transition duration-300 shadow-lg">
-                Explore Now
-            </a>
+            <div class="flex space-x-4 justify-center">
+                <a href="{{ route('products.index') }}" class="bg-brand-accent text-white text-lg py-3 px-8 rounded-lg font-bold hover:bg-orange-600 transition duration-300 shadow-lg">
+                    Products
+                </a>
+                <a href="{{ route('contact') }}" class="bg-white/10 backdrop-blur text-white text-lg py-3 px-8 rounded-lg font-bold hover:bg-white/20 transition duration-300">
+                    Contact Us
+                </a>
+            </div>
         </div>
     </section>
 
