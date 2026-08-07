@@ -4,25 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | May Harmony Find You</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,load"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#04405F',
-                            medium: '#3483EB',
-                            light: '#8AE1F0',
-                            accent: '#f5771d',
-                            bgLight: '#F0FCFD',
-                            bgMedium: '#D2F4F9',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="{{ asset('css/brand.css') }}">
 </head>
 <body class="bg-brand-bg-light">
     <nav class="bg-brand-dark text-white shadow-sm">
