@@ -6,66 +6,120 @@
     <title>May Harmony Find You - Brand Colors</title>
     <link rel="stylesheet" href="{{ asset('css/brand.css') }}">
 </head>
-<body class="bg-dark-blue">
+<body class="font-sans">
     <!-- Navigation Bar -->
     <nav class="bg-brand-dark text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3">
                     <div class="logo-white-bg">
                         <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-12 w-auto">
                     </div>
                     <span class="text-xl font-bold">May Harmony Find You</span>
                 </div>
-                <div class="flex space-x-4">
+                <div class="hidden md:flex space-x-6">
                     <a href="{{ route('products.index') }}" class="text-brand-light hover:text-brand-medium transition">Products</a>
                     <a href="{{ route('contact') }}" class="text-brand-light hover:text-brand-medium transition">Contact</a>
+                </div>
+                <div>
+                    <a href="{{ route('login') }}" class="bg-brand-medium text-white px-4 py-2 rounded text-sm font-semibold">Login</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Logo - Light Blue Background -->
-    <section class="bg-light-blue py-20">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-center mb-8">
+    <!-- Hero Section with Gradient Background -->
+    <section id="home" class="bg-gradient-brand text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center mb-6">
                 <div class="logo-white-bg bg-white/90 backdrop-blur-sm">
                     <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-20 w-auto mx-auto">
                 </div>
             </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-5xl font-bold mb-6 text-center text-brand-dark">May Harmony Find You</h1>
-                <p class="text-xl mb-12 text-center text-brand-dark">Discover tranquility and balance in your daily life</p>
-                
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light mb-8">
-                    <h2 class="text-3xl font-bold text-brand-dark mb-6 text-center">Welcome</h2>
-                    <p class="text-gray-600 mb-8 text-center">
-                        Your premier concierge for bespoke experiences and high-end services. 
-                        Our team is dedicated to ensuring your experience is seamless.
-                    </p>
-                    
-                    <div class="flex space-x-4 justify-center">
-                        <a href="{{ route('products.index') }}" class="inline-block bg-brand-medium text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light text-center">
-                            Products
-                        </a>
-                        <a href="{{ route('contact') }}" class="inline-block bg-brand-bg-light text-brand-dark px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 text-center">
-                            Get in Touch
-                        </a>
-                    </div>
+            <h1 class="text-5xl font-bold mb-4">May Harmony Find You</h1>
+            <p class="text-xl mb-8">Discover tranquility and balance in your daily life</p>
+            <a href="{{ route('products.index') }}" class="bg-brand-accent text-white text-lg py-3 px-8 rounded-lg font-bold hover:bg-orange-600 transition duration-300 shadow-lg">
+                Explore Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 bg-brand-bg-light">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-12">Our Products</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 border-2 border-brand-accent">
+                    <div class="text-brand-accent text-4xl mb-4"><i class="fas fa-star"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Product 1</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand-medium text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 2</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand-medium text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 3</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand-medium text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Orange Splash Section -->
-    <section class="bg-orange-splash py-12">
+    <!-- Orange Accent Showcase Section -->
+    <section class="py-16 bg-gradient-accent text-white">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-white mb-4">Ready to Begin?</h2>
-            <p class="text-white/90 mb-8">Explore our curated collection of premium products</p>
-            <a href="{{ route('products.index') }}" class="inline-block bg-white text-brand-dark px-8 py-3 rounded-lg font-bold hover:bg-brand-light transition duration-300 shadow-lg">
-                Browse Products
-            </a>
+            <h2 class="text-3xl font-bold mb-4">Orange Accent Color</h2>
+            <p class="text-lg mb-8 opacity-90">Using #f5771d as an accent color</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Accent Usage Examples</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Star ratings and badges</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Call-to-action highlights</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Special promotions</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
+                            <span>Icon highlights</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Color Palette Comparison</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-dark"></div>
+                            <span class="text-sm">Dark: #04405F</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-medium"></div>
+                            <span class="text-sm">Blue: #3483EB</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-light"></div>
+                            <span class="text-sm">Light: #8AE1F0</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded bg-brand-accent shadow-lg shadow-orange-500/50"></div>
+                            <span class="text-sm font-semibold">Accent: #f5771d</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </body>

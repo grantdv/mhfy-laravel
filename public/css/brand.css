@@ -329,3 +329,46 @@ section.bg-gradient-brand {
 section.bg-orange-splash {
     background: linear-gradient(180deg, var(--brand-bg-light) 0%, #f5771d 100%);
 }
+
+/* Orange Accent Gradient Background - from approved mockup */
+section.bg-gradient-accent {
+    background: linear-gradient(135deg, #f5771d 0%, #e65c00 100%);
+}
+
+/* Ensure text is visible on orange gradient */
+section.bg-gradient-accent h2,
+section.bg-gradient-accent p,
+section.bg-gradient-accent h3 {
+    color: white !important;
+}
+
+/* Navigation hover states - use approved colors */
+nav.bg-brand-dark a:hover {
+    color: var(--brand-medium) !important;
+}
+
+/* Text colors for light backgrounds */
+.bg-brand-bg-light h2,
+.bg-brand-bg-light p,
+.bg-brand-bg-light h3 {
+    color: var(--brand-dark) !important;
+}
+
+/* Ensure product section has dark text */
+section.bg-brand-bg-light {
+    color: var(--brand-dark);
+}
+
+/* Orange accent section ensures white text */
+section.bg-gradient-accent {
+    color: white;
+}
+
+/* Text utilities for orange section */
+section.bg-gradient-accent .text-white {
+    color: white !important;
+}
+
+section.bg-gradient-accent .text-lg {
+    color: white !important;
+}
