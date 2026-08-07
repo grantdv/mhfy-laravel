@@ -248,32 +248,13 @@ body > nav, body > div, main {
 /* Grid and product cards */
 body .grid, main .grid, .max-w-7xl .grid {
     width: 100%;
-/* Logo image size constraints - FIX for huge images */
-/* Navigation logo - 48px height (was h-12 Tailwind class) */
-.logo-white-bg img {
-    height: 48px !important;
-    width: auto !important;
-    max-width: none !important;
-    max-height: none !important;
-}
 
 /* Hero section logo - 80px height (was h-20 Tailwind class) */
 .logo-white-bg.bg-white\/90 img,
-.logo-white-bg.bg-white\/90 img + img {
+.logo-white-bg.bg-white\/90 + img,
+.logo-white-bg.bg-white/90 img {
     height: 80px !important;
     width: auto !important;
     max-width: none !important;
     max-height: none !important;
-}
-
-/* Ensure logo containers don't stretch to full width */
-.logo-white-bg {
-    display: inline-block !important;
-    max-width: 100px !important;
-    width: auto !important;
-}
-
-/* Prevent images from being too wide */
-.logo-white-bg img {
-    max-width: 200px !important;
 }
