@@ -45,7 +45,7 @@
                         Our team is dedicated to ensuring your experience is seamless.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+                    <div class="flex space-x-4 justify-center">
                         <a href="{{ route('products.index') }}" class="inline-block bg-brand-medium text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light text-center">
                             Products
                         </a>

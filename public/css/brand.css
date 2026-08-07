@@ -289,3 +289,20 @@ body .grid, main .grid, .max-w-7xl .grid {
 .logo-white-bg img {
     max-width: 200px !important;
 }
+
+/* Ensure buttons in hero section are side by side */
+section.bg-gradient-brand .flex.space-x-4 {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+}
+
+section.bg-gradient-brand .flex.space-x-4 > * {
+    flex: 0 1 auto !important;
+}
+
+@media (max-width: 768px) {
+    section.bg-gradient-brand .flex.space-x-4 {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+    }
+}
