@@ -258,3 +258,35 @@ body .grid, main .grid, .max-w-7xl .grid {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* Logo image size constraints - prevent huge images from breaking layout */
+.logo-white-bg img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    height: auto !important;
+    width: auto !important;
+}
+
+/* Navigation logo - 48px height */
+.logo-white-bg.inline-block img {
+    height: 48px !important;
+    width: auto !important;
+    max-width: none !important;
+}
+
+/* Hero section logo - 80px height */
+.logo-white-bg.bg-white\/90 img {
+    height: 80px !important;
+    width: auto !important;
+    max-width: none !important;
+}
+
+/* Ensure logo containers don't stretch */
+.logo-white-bg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: none !important;
+    width: auto !important;
+}
