@@ -306,3 +306,26 @@ section.bg-gradient-brand .flex.space-x-4 > * {
         flex-wrap: nowrap !important;
     }
 }
+
+/* Page background colors */
+body.bg-dark-blue {
+    background-color: var(--brand-dark);
+}
+
+body.bg-light-blue {
+    background-color: var(--brand-bg-light);
+}
+
+body.bg-orange-splash {
+    background: linear-gradient(180deg, var(--brand-bg-light) 0%, var(--brand-accent) 100%);
+}
+
+/* Hero section gradient background */
+section.bg-gradient-brand {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-medium) 50%, var(--brand-light) 100%);
+}
+
+/* Orange accent splash */
+section.bg-orange-splash {
+    background: linear-gradient(180deg, var(--brand-bg-light) 0%, #f5771d 100%);
+}

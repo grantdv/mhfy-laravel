@@ -6,7 +6,7 @@
     <title>May Harmony Find You - Brand Colors</title>
     <link rel="stylesheet" href="{{ asset('css/brand.css') }}">
 </head>
-<body class="font-sans bg-white">
+<body class="bg-dark-blue">
     <!-- Navigation Bar -->
     <nav class="bg-brand-dark text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,8 +25,8 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Logo -->
-    <section class="bg-gradient-brand text-white py-20">
+    <!-- Hero Section with Logo - Light Blue Background -->
+    <section class="bg-light-blue py-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-center mb-8">
                 <div class="logo-white-bg bg-white/90 backdrop-blur-sm">
@@ -35,10 +35,10 @@
             </div>
             
             <div class="max-w-4xl mx-auto">
-                <h1 class="text-5xl font-bold mb-6 text-center">May Harmony Find You</h1>
-                <p class="text-xl mb-12 text-center">Discover tranquility and balance in your daily life</p>
+                <h1 class="text-5xl font-bold mb-6 text-center text-brand-dark">May Harmony Find You</h1>
+                <p class="text-xl mb-12 text-center text-brand-dark">Discover tranquility and balance in your daily life</p>
                 
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light mb-8">
                     <h2 class="text-3xl font-bold text-brand-dark mb-6 text-center">Welcome</h2>
                     <p class="text-gray-600 mb-8 text-center">
                         Your premier concierge for bespoke experiences and high-end services. 
@@ -55,6 +55,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Orange Splash Section -->
+    <section class="bg-orange-splash py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Begin?</h2>
+            <p class="text-white/90 mb-8">Explore our curated collection of premium products</p>
+            <a href="{{ route('products.index') }}" class="inline-block bg-white text-brand-dark px-8 py-3 rounded-lg font-bold hover:bg-brand-light transition duration-300 shadow-lg">
+                Browse Products
+            </a>
         </div>
     </section>
 </body>
