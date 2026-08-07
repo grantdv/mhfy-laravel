@@ -249,24 +249,17 @@ body > nav, body > div, main {
 body .grid, main .grid, .max-w-7xl .grid {
     width: 100%;
 /* Logo image size constraints - FIX for huge images */
+/* Navigation logo - 48px height (was h-12 Tailwind class) */
 .logo-white-bg img {
-    max-width: none !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
-}
-
-/* Navigation logo - 48px height (h-12 in Tailwind) */
-.logo-white-bg.inline-block img {
     height: 48px !important;
     width: auto !important;
     max-width: none !important;
     max-height: none !important;
 }
 
-/* Hero section logo - 80px height (h-20 in Tailwind) */
+/* Hero section logo - 80px height (was h-20 Tailwind class) */
 .logo-white-bg.bg-white\/90 img,
-.logo-white-bg.bg-white\/90 + img {
+.logo-white-bg.bg-white\/90 img + img {
     height: 80px !important;
     width: auto !important;
     max-width: none !important;
