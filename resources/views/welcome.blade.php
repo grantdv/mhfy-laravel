@@ -52,19 +52,15 @@
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4">
                             <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
-                            <span>Star ratings and badges</span>
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
-                            <span>Call-to-action highlights</span>
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
-                            <span>Special promotions</span>
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="w-4 h-4 rounded-full bg-brand-accent"></div>
-                            <span>Icon highlights</span>
                         </div>
                     </div>
                 </div>
@@ -73,19 +69,15 @@
                     <div class="space-y-3">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded bg-brand-dark"></div>
-                            <span class="text-sm">Dark: #04405F</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded bg-brand-medium"></div>
-                            <span class="text-sm">Blue: #3483EB</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded bg-brand-light"></div>
-                            <span class="text-sm">Light: #8AE1F0</span>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded bg-brand-accent shadow-lg shadow-orange-500/50"></div>
-                            <span class="text-sm font-semibold">Accent: #f5771d</span>
                         </div>
                     </div>
                 </div>
