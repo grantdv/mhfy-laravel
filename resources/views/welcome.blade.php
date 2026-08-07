@@ -25,7 +25,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Logo and Box -->
+    <!-- Hero Section with Logo -->
     <section class="bg-gradient-brand text-white py-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-center mb-8">
@@ -47,7 +47,7 @@
                     
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
                         <a href="{{ route('products.index') }}" class="inline-block bg-brand-medium text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light text-center">
-                            Explore Our Services
+                            Products
                         </a>
                         <a href="{{ route('contact') }}" class="inline-block bg-brand-bg-light text-brand-dark px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 text-center">
                             Get in Touch
