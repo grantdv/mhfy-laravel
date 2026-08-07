@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services | May Harmony Find You</title>
+    <title>Our Products | May Harmony Find You</title>
     <link rel="stylesheet" href="{{ asset('css/brand.css') }}">
 </head>
 <body class="bg-brand-bg-light">
@@ -11,7 +11,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">May Harmony Find You</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">
+                        <div class="logo-white-bg inline-block">
+                            <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-10 w-auto">
+                        </div>
+                        <span class="ml-2">May Harmony Find You</span>
+                    </a>
                 </div>
                 <div class="flex space-x-4 items-center">
                     <a href="{{ route('cart.show') }}" class="inline-flex items-center px-3 py-2 border border-brand-light text-sm leading-4 font-medium rounded-md text-brand-light bg-brand-bg-light hover:bg-brand-light hover:text-brand-dark focus:outline-none transition duration-150 ease-in-out relative">
@@ -26,16 +31,16 @@
                         @endif
                     </a>
                     <a href="{{ route('products.index') }}" class="text-brand-light hover:text-white font-medium">Products</a>
-                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <header class="mb-12">
-            <h1 class="text-4xl font-extrabold text-brand-dark">Our Services</h1>
-            <p class="mt-4 text-lg text-gray-600">Select a service below to explore our premium concierge offerings.</p>
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-extrabold text-brand-dark">Our Products</h1>
+            <p class="mt-4 text-lg text-gray-600">Explore our curated collection of premium products.</p>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

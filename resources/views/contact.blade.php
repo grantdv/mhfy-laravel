@@ -11,11 +11,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">May Harmony Find You</a>
+                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">
+                        <div class="logo-white-bg inline-block">
+                            <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-10 w-auto">
+                        </div>
+                        <span class="ml-2">May Harmony Find You</span>
+                    </a>
                 </div>
                 <div class="flex space-x-4">
                     <a href="{{ route('products.index') }}" class="text-brand-light hover:text-white font-medium">Products</a>
-                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact</a>
                 </div>
             </div>
         </div>

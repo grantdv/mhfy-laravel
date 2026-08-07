@@ -3,49 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to May Harmony Find You</title>
+    <title>May Harmony Find You - Brand Colors</title>
     <link rel="stylesheet" href="{{ asset('css/brand.css') }}">
 </head>
-<body class="bg-brand-bg-light">
-    <nav class="bg-brand-dark text-white shadow-sm">
+<body class="font-sans bg-white">
+    <!-- Navigation Bar -->
+    <nav class="bg-brand-dark text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold text-brand-light">May Harmony Find You</a>
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="logo-white-bg">
+                        <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-12 w-auto">
+                    </div>
+                    <span class="text-xl font-bold">May Harmony Find You</span>
                 </div>
-                <div class="flex space-x-4 items-center">
-                    <a href="{{ route('cart.show') }}" class="inline-flex items-center px-3 py-2 border border-brand-light text-sm leading-4 font-medium rounded-md text-brand-light bg-brand-bg-light hover:bg-brand-light hover:text-brand-dark focus:outline-none transition duration-150 ease-in-out relative">
-                        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                        Cart
-                        @if($cartCount > 0)
-                            <span class="absolute -top-1 -right-2 bg-brand-orange text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                {{ $cartCount ?? 0 }}
-                            </span>
-                        @endif
-                    </a>
-                    <a href="{{ route('products.index') }}" class="text-brand-light hover:text-white font-medium">Products</a>
-                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-white font-medium">Contact Us</a>
+                <div class="flex space-x-4">
+                    <a href="{{ route('products.index') }}" class="text-brand-light hover:text-brand-medium transition">Products</a>
+                    <a href="{{ route('contact') }}" class="text-brand-light hover:text-brand-medium transition">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white p-8 rounded-xl shadow-lg border border-brand-light">
-            <h1 class="text-3xl font-bold mb-2 text-brand-dark">Welcome to May Harmony Find You</h1>
-            <p class="text-gray-600 mb-8">Your premier concierge for bespoke experiences and high-end services.</p>
-            
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="{{ route('products.index') }}" class="inline-block bg-brand-medium text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 shadow-lg shadow-brand-bg-light text-center">
-                    Explore Our Services
-                </a>
-                <a href="{{ route('contact') }}" class="inline-block bg-brand-bg-light text-brand-dark px-6 py-3 rounded-lg font-semibold hover:bg-brand-light transition duration-300 text-center">
-                    Get in Touch
-                </a>
+    <!-- Hero Section -->
+    <section class="bg-gradient-brand text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="logo-white-bg bg-white/90 backdrop-blur-sm">
+                    <img src="{{ asset('images/logo.png') }}" alt="May Harmony Find You Logo" class="h-20 w-auto mx-auto">
+                </div>
+            </div>
+            <h1 class="text-5xl font-bold mb-4">May Harmony Find You</h1>
+            <p class="text-xl mb-8">Discover tranquility and balance in your daily life</p>
+            <a href="{{ route('products.index') }}" class="bg-brand text-lg py-3 px-8 rounded-lg font-bold text-white">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-brand-bg-light">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-12">Our Products</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 border-2 border-brand-accent">
+                    <div class="text-brand-accent text-4xl mb-4"><i class="fas fa-star"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Product 1</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 2</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-2">Product 3</h3>
+                    <p class="text-gray-600 mb-4">Product description</p>
+                    <button class="bg-brand text-white w-full py-2 px-4 rounded-lg font-bold">Add to Cart</button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </body>
 </html>
